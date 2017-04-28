@@ -1,69 +1,64 @@
-import javafx.event.EventHandler;
-import javafx.event.ActionEvent;
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import com.google.gson.*;
 
 public class MainClass {
-    static String source = new String("C:\\Users\\buergi\\DHBW\\Auto-Marken.txt");
+    public static String source = new String("C:\\Users\\buergi\\DHBW\\Auto.txt");
     public static JComboBox cbmodel = new JComboBox();
     public static JComboBox cbyear = new JComboBox();
     public static JComboBox cbbrand = new JComboBox();
     public static Button btnsuchen = new Button();
-   /* public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("ui.fxml"));
-        primaryStage.setTitle("WeatherFX");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-    }*/
+    public static String textdatei;
 
-
-
-    private static void Textdateieinlesen(String dateiname){
-
+    private static String Textdateieinlesen(String filename) //Textdatei mit Json Objekten einlesen
+    {
+        String[] parts = null;
+        String part = "";
         BufferedReader br = null;
-        brandsadd("Hiii Timmie,");
-        modeladd("du süßer");
-        yearadd("Boy!");
         try {
-            br = new BufferedReader(new FileReader(new File(dateiname)));
+            br = new BufferedReader(new FileReader(new File(filename)));
             String line;
-            while((line = br.readLine()) != null) {
-                System.out.println(line);
-                String[] parts = line.split(",");
+            while ((line = br.readLine()) != null) {
+                //System.out.println(line);
+                parts = line.split("\r");
+                for (String _part : parts) {
+                    part += _part;
+                }
             }
-        } catch(FileNotFoundException e) {
+            return part;
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if(br != null) {
+            if (br != null) {
                 try {
                     br.close();
-                } catch(IOException e) {
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }
+        return null;
     }
 
-    public static void brandsadd (String carbrand) //Marke zur Combobox für Auto-Marken hinzufügen
+    public static void brandsadd(String carbrand) //Marke zur Combobox für Auto-Marken hinzufügen
     {
         cbbrand.addItem(carbrand);
     }
 
-    public static void modeladd (String carmodel) //Model zur Combobox für Auto-Modelle hinzufügen
+    public static void modeladd(String carmodel) //Model zur Combobox für Auto-Modelle hinzufügen
     {
         cbmodel.addItem(carmodel);
     }
 
-    public static void yearadd (String caryear) //Baujhar zur Combobox für Baujahre hinzufügen
+    public static void yearadd(String caryear) //Baujhar zur Combobox für Baujahre hinzufügen
     {
         cbyear.addItem(caryear);
     }
 
-    public static void suchenclick ()
+    public static void suchenclick() //Suchen Methode
     {
         String carbrand = cbbrand.getSelectedItem().toString();
         String carmodel = cbmodel.getSelectedItem().toString();
@@ -71,52 +66,72 @@ public class MainClass {
         System.out.println(carbrand + " " + carmodel + " " + caryear);
     }
 
-    public static void main(String[] args) throws  Exception {
-
-        Textdateieinlesen(source);
-        suchenclick();
-
-
-
-        /*btnsuchen.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event)
-            {
-                suchenclick();
-            }
-        });*/
-
-            /*URL edmunds = new URL("https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p");
-            URLConnection yc = edmunds.openConnection();
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(
-                            yc.getInputStream()));
-            String inputLine;
-
-            while ((inputLine = in.readLine()) != null)
-                System.out.println(inputLine);
-            in.close();*/
-
+    public static class Autos //Alle Automarken
+    {
+        java.util.List<Automarke> makes;
+        int makesCount;
     }
 
-        /*private static String readAll(Reader rd) throws IOException {
-            StringBuilder sb = new StringBuilder();
-            int cp;
-            while ((cp = rd.read()) != -1) {
-                sb.append((char) cp);
-            }
-            return sb.toString();
+    public static class Automarke //Automarken
+    {
+        int id;
+        String name;
+        String niceName;
+        java.util.List<Automodell> models;
+    }
+
+    public static class Automodell //Automodelle der Marke
+    {
+        String id;
+        String name;
+        String niceName;
+        java.util.List<Years> years;
+    }
+
+    public class Years //Jahre des Automodells
+    {
+        int id;
+        int year;
+    }
+
+    public static void createjsonobjects() //Json Objekte aus Textdatei erstellen
+    {
+        textdatei = Textdateieinlesen(source); //Textdateinlesen
+        Gson gson = new Gson();
+        Autos userObject = gson.fromJson(textdatei, Autos.class); //Jsonobjekte erzeugen mit Auto-Klasse
+    }
+
+    public static void main(String[] args) throws Exception
+    {
+        createjsonobjects();
+        //test();
+    }
+
+    public static void test() //Nicht fertig
+    {
+        Gson gson = new Gson();
+        JsonParser parser = new JsonParser();
+        JsonElement element = parser.parse(textdatei);
+        if (element.isJsonObject()) {
+            JsonObject makes = element.getAsJsonObject();
+            System.out.println();
+            JsonObject models = makes.getAsJsonObject();
+            System.out.println(models.get("name").getAsString());
+            System.out.println(makes.get("makes").getAsString());
         }
+    }
 
-        public static JSONObject readJsonFromUrl(String url) throws IOException, JSONException {
-            InputStream is = new URL(url).openStream();
-            try {
-                BufferedReader rd = new BufferedReader(new InputStreamReader(is, Charset.forName("UTF-8")));
-                String jsonText = readAll(rd);
-                JSONObject json = new JSONObject(jsonText);
-                return json;
-            } finally {
-                is.close();
-            }
-        }*/
+    public static void Internetanfrage() //Nicht fertig
+    { /*
+        URL edmunds = new URL("https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p");
+        URLConnection yc = edmunds.openConnection();
+        BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
+        String inputLine;
+        while ((inputLine = in.readLine()) != null)
+        {
+                System.out.println(inputLine);
+        }
+        in.close();*/
 
+    }
 }
