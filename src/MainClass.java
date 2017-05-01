@@ -1,15 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
+import java.util.ArrayList;
+
 import com.google.gson.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class MainClass {
-    public static String source = new String("C:\\Users\\buergi\\DHBW\\Auto.txt");
+    public static String source = new String("C:\\Users\\buergi\\DHBW\\AlleAutos.txt");
     public static JComboBox cbmodel = new JComboBox();
     public static JComboBox cbyear = new JComboBox();
     public static JComboBox cbbrand = new JComboBox();
     public static Button btnsuchen = new Button();
     public static String textdatei;
+    //public static Autos AllCars;
 
     private static String Textdateieinlesen(String filename) //Textdatei mit Json Objekten einlesen
     {
@@ -66,59 +71,53 @@ public class MainClass {
         System.out.println(carbrand + " " + carmodel + " " + caryear);
     }
 
-    public static class Autos //Alle Automarken
-    {
-        java.util.List<Automarke> makes;
-        int makesCount;
-    }
-
-    public static class Automarke //Automarken
-    {
-        int id;
-        String name;
-        String niceName;
-        java.util.List<Automodell> models;
-    }
-
-    public static class Automodell //Automodelle der Marke
-    {
-        String id;
-        String name;
-        String niceName;
-        java.util.List<Years> years;
-    }
-
-    public class Years //Jahre des Automodells
-    {
-        int id;
-        int year;
-    }
-
-    public static void createjsonobjects() //Json Objekte aus Textdatei erstellen
-    {
-        textdatei = Textdateieinlesen(source); //Textdateinlesen
-        Gson gson = new Gson();
-        Autos userObject = gson.fromJson(textdatei, Autos.class); //Jsonobjekte erzeugen mit Auto-Klasse
-    }
-
     public static void main(String[] args) throws Exception
     {
-        createjsonobjects();
-        //test();
+        textdatei = Textdateieinlesen(source);
+        Automarkenauslesen();
+        //Objekteauslesen();
     }
 
-    public static void test() //Nicht fertig
+    public static ArrayList Automarkenauslesen() //Alle Automarken
     {
-        Gson gson = new Gson();
-        JsonParser parser = new JsonParser();
-        JsonElement element = parser.parse(textdatei);
-        if (element.isJsonObject()) {
-            JsonObject makes = element.getAsJsonObject();
-            System.out.println();
-            JsonObject models = makes.getAsJsonObject();
-            System.out.println(models.get("name").getAsString());
-            System.out.println(makes.get("makes").getAsString());
+        ArrayList<String> Automarken = new ArrayList<String>();
+        JSONArray alleAutomarken;
+        JSONObject json = new JSONObject(textdatei);
+        int anzahlautomarken = json.getInt("makesCount");
+        JSONArray makesarray = json.getJSONArray("makes");
+        for(int i = 0; i < anzahlautomarken; i++)
+        {
+            JSONObject automarke = makesarray.getJSONObject(i);
+            String automarkenname = automarke.getString("name");
+            Automarken.add(automarkenname);
         }
+        return Automarken;
+    }
+
+    public static void Objekteauslesen() //Nicht fertig
+    {
+        JSONObject json = new JSONObject(textdatei);
+
+        JSONArray makesarray = json.getJSONArray("makes");
+        System.out.println("makesarray: " + makesarray);
+
+        JSONObject modelle = makesarray.getJSONObject(9);
+        System.out.println("modelle: " + modelle);
+
+        JSONArray dodgemodelle = modelle.getJSONArray("models");
+        System.out.println("dodgemodelle: "+ dodgemodelle);
+
+        JSONObject modell1 = dodgemodelle.getJSONObject(0);
+        System.out.println(modell1);
+
+        JSONArray jahr = modell1.getJSONArray("years");
+        System.out.println(jahr);
+
+        JSONObject jahr1 = jahr.getJSONObject(0);
+        System.out.println(jahr1);
+
+        int id1 = jahr1.getInt("id");
+        System.out.println(id1);
     }
 
     public static void Internetanfrage() //Nicht fertig
@@ -132,6 +131,5 @@ public class MainClass {
                 System.out.println(inputLine);
         }
         in.close();*/
-
     }
 }
