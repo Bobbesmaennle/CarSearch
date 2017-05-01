@@ -78,9 +78,15 @@ public class MainClass {
         //Objekteauslesen();
     }
 
+    public static class MyStringid
+    {
+        String MyStringidName = null;
+        double MyStringidID = 0;
+    }
+
     public static ArrayList Automarkenauslesen() //Alle Automarken
     {
-        ArrayList<String> Automarken = new ArrayList<String>();
+        ArrayList<MyStringid> Automarken = new ArrayList<MyStringid>();
         JSONArray alleAutomarken;
         JSONObject json = new JSONObject(textdatei);
         int anzahlautomarken = json.getInt("makesCount");
@@ -89,7 +95,11 @@ public class MainClass {
         {
             JSONObject automarke = makesarray.getJSONObject(i);
             String automarkenname = automarke.getString("name");
-            Automarken.add(automarkenname);
+            Double automarkenid = automarke.getDouble("id");
+            MyStringid Myautomarke = new MyStringid();
+            Myautomarke.MyStringidID = automarkenid;
+            Myautomarke.MyStringidName = automarkenname;
+            Automarken.add(Myautomarke);
         }
         return Automarken;
     }
