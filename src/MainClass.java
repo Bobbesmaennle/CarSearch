@@ -2,8 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
-
-import com.google.gson.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -14,7 +12,6 @@ public class MainClass {
     public static JComboBox cbbrand = new JComboBox();
     public static Button btnsuchen = new Button();
     public static String textdatei;
-    //public static Autos AllCars;
 
     private static String Textdateieinlesen(String filename) //Textdatei mit Json Objekten einlesen
     {
@@ -74,19 +71,32 @@ public class MainClass {
     public static void main(String[] args) throws Exception
     {
         textdatei = Textdateieinlesen(source);
+        ArrayList<MyStringids> ergebnis = new ArrayList<MyStringids>();
+        MyStringids Myautomarke = new MyStringids();
+        Myautomarke.MyStringidMarkenID = 200009788;
+        Myautomarke.MyStringidMarkenName = "Dodge";
+        Myautomarke.MyStringidModellNiceName = "avenger";
+        Myautomarke.MyStringidModellID = "Dodge_Avenger";
+        Myautomarke.MyStringidModellName = "Avenger";
         Automarkenauslesen();
-        //Objekteauslesen();
+        Automarkenmodelleauslesen(Myautomarke);
+        Automarkenmodelljahreauslesen(Myautomarke);
     }
 
-    public static class MyStringid
+    public static class MyStringids //Allgemeine Klasse für Objekte mit String, Id
     {
-        String MyStringidName = null;
-        double MyStringidID = 0;
+        String MyStringidMarkenName = null;
+        double MyStringidMarkenID = 0;
+        String MyStringidModellName = null;
+        String MyStringidModellNiceName = null;
+        String MyStringidModellID = null;
+        int MyStringidJahr = 0;
+        double MyStringidJahrid = 0;
     }
 
     public static ArrayList Automarkenauslesen() //Alle Automarken
     {
-        ArrayList<MyStringid> Automarken = new ArrayList<MyStringid>();
+        ArrayList<MyStringids> Automarken = new ArrayList<MyStringids>();
         JSONArray alleAutomarken;
         JSONObject json = new JSONObject(textdatei);
         int anzahlautomarken = json.getInt("makesCount");
@@ -96,38 +106,84 @@ public class MainClass {
             JSONObject automarke = makesarray.getJSONObject(i);
             String automarkenname = automarke.getString("name");
             Double automarkenid = automarke.getDouble("id");
-            MyStringid Myautomarke = new MyStringid();
-            Myautomarke.MyStringidID = automarkenid;
-            Myautomarke.MyStringidName = automarkenname;
+            MyStringids Myautomarke = new MyStringids();
+            Myautomarke.MyStringidMarkenID = automarkenid;
+            Myautomarke.MyStringidMarkenName = automarkenname;
             Automarken.add(Myautomarke);
         }
         return Automarken;
     }
 
-    public static void Objekteauslesen() //Nicht fertig
+    public static ArrayList Automarkenmodelleauslesen(MyStringids Automarke) //Alle Modelle zu einer Automarke
     {
+        ArrayList<MyStringids> Automarkenmodelle = new ArrayList<MyStringids>();
         JSONObject json = new JSONObject(textdatei);
-
+        int anzahlautomarken = json.getInt("makesCount");
         JSONArray makesarray = json.getJSONArray("makes");
-        System.out.println("makesarray: " + makesarray);
+        for(int i = 0; i < anzahlautomarken; i++)
+        {
+            JSONObject automarke = makesarray.getJSONObject(i);
+            Double automarkenid = automarke.getDouble("id");
+            if(automarkenid == Automarke.MyStringidMarkenID)
+            {
+                JSONArray automarkenmodelle = automarke.getJSONArray("models");
+                int anzahlmodelle = automarkenmodelle.length();
+                for(int j = 0; j < anzahlmodelle; j++)
+                {
+                    JSONObject modell = automarkenmodelle.getJSONObject(j);
+                    MyStringids Myautomarkenmodell = new MyStringids();
+                    Myautomarkenmodell.MyStringidModellID = modell.getString("id");
+                    Myautomarkenmodell.MyStringidModellName = modell.getString("name");
+                    Myautomarkenmodell.MyStringidModellNiceName = modell.getString("niceName");
+                    Myautomarkenmodell.MyStringidMarkenName = automarke.getString("name");
+                    Myautomarkenmodell.MyStringidMarkenID = automarke.getDouble("id");
+                    Automarkenmodelle.add(Myautomarkenmodell);
+                }
+            }
+        }
+        return Automarkenmodelle;
+    }
 
-        JSONObject modelle = makesarray.getJSONObject(9);
-        System.out.println("modelle: " + modelle);
-
-        JSONArray dodgemodelle = modelle.getJSONArray("models");
-        System.out.println("dodgemodelle: "+ dodgemodelle);
-
-        JSONObject modell1 = dodgemodelle.getJSONObject(0);
-        System.out.println(modell1);
-
-        JSONArray jahr = modell1.getJSONArray("years");
-        System.out.println(jahr);
-
-        JSONObject jahr1 = jahr.getJSONObject(0);
-        System.out.println(jahr1);
-
-        int id1 = jahr1.getInt("id");
-        System.out.println(id1);
+    public static ArrayList Automarkenmodelljahreauslesen (MyStringids Automodell) //Jahre zu einem Automodell
+    {
+        ArrayList<MyStringids> Automarkenmodelljahre = new ArrayList<MyStringids>();
+        JSONObject json = new JSONObject(textdatei);
+        int anzahlautomarken = json.getInt("makesCount");
+        JSONArray makesarray = json.getJSONArray("makes");
+        for(int i = 0; i < anzahlautomarken; i++)
+        {
+            JSONObject automarke = makesarray.getJSONObject(i);
+            Double automarkenid = automarke.getDouble("id");
+            if(automarkenid == Automodell.MyStringidMarkenID)
+            {
+                JSONArray automarkenmodelle = automarke.getJSONArray("models");
+                int anzahlmodelle = automarkenmodelle.length();
+                for(int j = 0; j < anzahlmodelle; j++)
+                {
+                    JSONObject modell = automarkenmodelle.getJSONObject(j);
+                    String automodellid = modell.getString("id");
+                    if(automodellid.equals(Automodell.MyStringidModellID))
+                    {
+                        JSONArray automodelljahre = modell.getJSONArray("years");
+                        int jahreanzahl = automodelljahre.length();
+                        for(int k = 0; k < jahreanzahl; k++)
+                        {
+                            JSONObject jahr = automodelljahre.getJSONObject(k);
+                            MyStringids Myautomarkenmodelljahr = new MyStringids();
+                            Myautomarkenmodelljahr.MyStringidModellName = modell.getString("name");
+                            Myautomarkenmodelljahr.MyStringidModellID = modell.getString("id");
+                            Myautomarkenmodelljahr.MyStringidModellNiceName = modell.getString("niceName");
+                            Myautomarkenmodelljahr.MyStringidMarkenName = automarke.getString("name");
+                            Myautomarkenmodelljahr.MyStringidMarkenID = automarke.getDouble("id");
+                            Myautomarkenmodelljahr.MyStringidJahrid = jahr.getDouble("id");
+                            Myautomarkenmodelljahr.MyStringidJahr = jahr.getInt("year");
+                            Automarkenmodelljahre.add(Myautomarkenmodelljahr);
+                        }
+                    }
+                }
+            }
+        }
+        return Automarkenmodelljahre;
     }
 
     public static void Internetanfrage() //Nicht fertig
