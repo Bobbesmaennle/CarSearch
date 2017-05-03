@@ -89,7 +89,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
         <children>
-            <ListView prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Lightgray;" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
+            <ListView prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Gray;" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: Lightgray;" GridPane.columnIndex="1" GridPane.rowIndex="0">
 
                 <Label alignment="CENTER" contentDisplay="CENTER" text="Welcome to the CarSearch!" VBox.vgrow="ALWAYS">
