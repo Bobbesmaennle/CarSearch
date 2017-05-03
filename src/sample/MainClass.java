@@ -82,6 +82,7 @@ public class MainClass extends Application  {
 
     public static void main(String[] args) throws Exception
     {
+        launch(args);
         textdatei = Textdateieinlesen("AlleAutos");
         ArrayList<MyStringids> ergebnis = new ArrayList<MyStringids>();
         MyStringids Myautomarke = new MyStringids();
@@ -99,6 +100,17 @@ public class MainClass extends Application  {
         }
     }
 
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+
+        primaryStage.setTitle("CarSearcher");
+        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setMaximized(true);
+        //primaryStage.setFullScreen(true);
+        primaryStage.show();
+    }
+    
     public static class MyStringids //Allgemeine Klasse für Objekte mit String, Id
     {
         String MyStringidMarkenName = null;
