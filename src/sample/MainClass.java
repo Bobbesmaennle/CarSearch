@@ -4,10 +4,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class MainClass {
+import javafx.application.Application;
+
+
+
+public class MainClass extends Application  {
     public static String source = new String("C:\\Users\\buergi\\DHBW\\AlleAutos.txt");
     public static JComboBox cbmodel = new JComboBox();
     public static JComboBox cbyear = new JComboBox();
@@ -73,6 +82,10 @@ public class MainClass {
 
     public static void main(String[] args) throws Exception
     {
+
+        //Zum Startwn der GUI folgendes dekommentieren:
+        launch(args);
+
         System.out.println("klappt");
         textdatei = Textdateieinlesen("AlleAutos");
         ArrayList<MyStringids> ergebnis = new ArrayList<MyStringids>();
@@ -215,6 +228,18 @@ public class MainClass {
         BufferedWriter bw = new BufferedWriter(fw);
         bw.write(eingabeText);
         bw.close();
+    }
+
+
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+
+        primaryStage.setTitle("CarSearcher");
+        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setMaximized(true);
+        //primaryStage.setFullScreen(true);
+        primaryStage.show();
     }
 
 }
