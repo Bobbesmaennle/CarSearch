@@ -4,13 +4,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
+
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import java.net.*;
 
-import static javafx.application.Application.launch;
+import javafx.application.Application;
 
-public class MainClass {
+
+
+public class MainClass extends Application  {
     public static String source = new String("C:\\Users\\buergi\\DHBW\\AlleAutos.txt");
     public static JComboBox cbmodel = new JComboBox();
     public static JComboBox cbyear = new JComboBox();
@@ -76,7 +82,6 @@ public class MainClass {
 
     public static void main(String[] args) throws Exception
     {
-        launch(args);
         textdatei = Textdateieinlesen("AlleAutos");
         ArrayList<MyStringids> ergebnis = new ArrayList<MyStringids>();
         MyStringids Myautomarke = new MyStringids();
@@ -98,7 +103,6 @@ public class MainClass {
     {
         String MyStringidMarkenName = null;
         double MyStringidMarkenID = 0;
-
         String MyStringidModellName = null;
         String MyStringidModellNiceName = null;
         String MyStringidModellID = null;
@@ -198,8 +202,8 @@ public class MainClass {
         return Automarkenmodelljahre;
     }
 
-    public static void Internetanfrage() throws IOException //API aus Internet anfragen
-    {
+    public static void Internetanfrage() //Nicht fertig
+    { /*
         URL edmunds = new URL("https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p");
         URLConnection yc = edmunds.openConnection();
         BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
@@ -208,7 +212,7 @@ public class MainClass {
         {
                 System.out.println(inputLine);
         }
-        in.close();
+        in.close();*/
     }
 
     public static void Textdateischreiben(String filename, String eingabeText) throws IOException
@@ -220,7 +224,5 @@ public class MainClass {
         bw.write(eingabeText);
         bw.close();
     }
-
-
 
 }
