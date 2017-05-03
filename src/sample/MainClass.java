@@ -73,7 +73,6 @@ public class MainClass {
 
     public static void main(String[] args) throws Exception
     {
-        System.out.println("klappt");
         textdatei = Textdateieinlesen("AlleAutos");
         ArrayList<MyStringids> ergebnis = new ArrayList<MyStringids>();
         MyStringids Myautomarke = new MyStringids();
