@@ -83,7 +83,7 @@ public class MainClass extends Application  {
     public static void main(String[] args) throws Exception
     {
 
-        //Zum Startwn der GUI folgendes dekommentieren:
+        //Zum Starten der GUI folgendes dekommentieren:
         launch(args);
 
         System.out.println("klappt");

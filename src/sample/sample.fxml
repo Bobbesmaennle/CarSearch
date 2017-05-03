@@ -15,16 +15,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<!--
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="sample.Controller"
-            prefHeight="400.0" prefWidth="600.0">
 
-</AnchorPane>
--->
-
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: lightblue;" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
+          style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.3" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.3" />
@@ -36,7 +29,7 @@
         <RowConstraints minHeight="10.0" percentHeight="33.3" vgrow="SOMETIMES" />
     </rowConstraints>
 
-    <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0">
+    <HBox alignment="CENTER" style="-fx-background-color: lightblue;" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0">
         <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Lightblue;" HBox.hgrow="ALWAYS" />
 
         <VBox alignment="CENTER">
@@ -68,10 +61,11 @@
                     <HBox.margin>
                         <Insets left="10.0" />
                     </HBox.margin></ComboBox>
-                <Button text="Favoriten">
+                <Button text="Favoriten" visible="true">
                     <HBox.margin>
                         <Insets left="10.0" />
                     </HBox.margin></Button>
+
             </HBox>
             <HBox.margin>
                 <Insets left="10.0" right="10.0" />
@@ -89,17 +83,45 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
         <children>
-            <ListView prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Gray;" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS" />
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: Lightgray;" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <ListView prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Gray;" GridPane.columnIndex="0" GridPane.halignment="CENTER"
+                      GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
 
-                <Label alignment="CENTER" contentDisplay="CENTER" text="Welcome to the CarSearch!" VBox.vgrow="ALWAYS">
+                <Button text="Marke/Modell_1">
+                    <HBox.margin>
+                        <Insets left="10.0" />
+                    </HBox.margin></Button>
+                <Button text="Marke/Modell_1">
+                    <HBox.margin>
+                        <Insets left="10.0" />
+                    </HBox.margin></Button>
+
+            </ListView>
+
+
+            <VBox visible="true" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: Lightgray;" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                <Label alignment="CENTER" contentDisplay="CENTER" text="Welcome to the CarSearch!" visible="true" VBox.vgrow="ALWAYS">
                     <font>
                         <Font size="30.0" />
                     </font></Label>
-                <Label alignment="CENTER" contentDisplay="CENTER" text="Please select car to start searching." textAlignment="CENTER" />
-
-
+                <Label alignment="CENTER" contentDisplay="CENTER" text="Please select car to start searching." textAlignment="CENTER" visible="true" />
             </VBox>
+
+            <ListView visible="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Gray;" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.halignment="CENTER"
+                      GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+
+                <Button text="Auto_1">
+                    <HBox.margin>
+                        <Insets left="10.0" />
+                    </HBox.margin></Button>
+                <Button text="Auto_2">
+                    <HBox.margin>
+                        <Insets left="10.0" />
+                    </HBox.margin></Button>
+
+            </ListView>
+
+
+
         </children>
 
 
