@@ -15,14 +15,15 @@ public class MainClass {
 
     private static String Textdateieinlesen(String filename) //Textdatei mit Json Objekten einlesen
     {
+        File fi = new File("");
+        String verz = fi.getAbsolutePath();
         String[] parts = null;
         String part = "";
         BufferedReader br = null;
         try {
-            br = new BufferedReader(new FileReader(new File(filename)));
+            br = new BufferedReader(new FileReader(new File(verz + "/" + filename + ".txt")));
             String line;
             while ((line = br.readLine()) != null) {
-                //System.out.println(line);
                 parts = line.split("\r");
                 for (String _part : parts) {
                     part += _part;
@@ -55,7 +56,7 @@ public class MainClass {
         cbmodel.addItem(carmodel);
     }
 
-    public static void yearadd(String caryear) //Baujhar zur Combobox für Baujahre hinzufügen
+    public static void yearadd(String caryear) //Baujahr zur Combobox für Baujahre hinzufügen
     {
         cbyear.addItem(caryear);
     }
@@ -70,7 +71,8 @@ public class MainClass {
 
     public static void main(String[] args) throws Exception
     {
-        textdatei = Textdateieinlesen(source);
+        System.out.println("klappt");
+        textdatei = Textdateieinlesen("AlleAutos");
         ArrayList<MyStringids> ergebnis = new ArrayList<MyStringids>();
         MyStringids Myautomarke = new MyStringids();
         Myautomarke.MyStringidMarkenID = 200009788;
@@ -80,7 +82,11 @@ public class MainClass {
         Myautomarke.MyStringidModellName = "Avenger";
         Automarkenauslesen();
         Automarkenmodelleauslesen(Myautomarke);
-        Automarkenmodelljahreauslesen(Myautomarke);
+        ergebnis = Automarkenmodelljahreauslesen(Myautomarke);
+        for (MyStringids auto: ergebnis
+             ) {
+            System.out.println(auto.MyStringidMarkenName + auto.MyStringidMarkenID + auto.MyStringidModellName + auto.MyStringidModellID + auto.MyStringidModellNiceName + auto.MyStringidJahr + auto.MyStringidJahrid);
+        }
     }
 
     public static class MyStringids //Allgemeine Klasse für Objekte mit String, Id
@@ -198,4 +204,15 @@ public class MainClass {
         }
         in.close();*/
     }
+
+    public static void Textdateischreiben(String filename, String eingabeText) throws IOException
+    {
+        File fi = new File("");
+        String verz = fi.getAbsolutePath();
+        FileWriter fw = new FileWriter(verz + "/" + filename + ".txt");
+        BufferedWriter bw = new BufferedWriter(fw);
+        bw.write(eingabeText);
+        bw.close();
+    }
+
 }
