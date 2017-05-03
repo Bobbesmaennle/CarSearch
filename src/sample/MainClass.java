@@ -4,20 +4,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
-
+import java.net.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import javafx.application.Application;
-
-
 
 public class MainClass extends Application  {
     public static String source = new String("C:\\Users\\buergi\\DHBW\\AlleAutos.txt");
+    public static boolean AlleAutosvorhanden = false;
     public static JComboBox cbmodel = new JComboBox();
     public static JComboBox cbyear = new JComboBox();
     public static JComboBox cbbrand = new JComboBox();
@@ -83,25 +81,33 @@ public class MainClass extends Application  {
     public static void main(String[] args) throws Exception
     {
         launch(args);
-        textdatei = Textdateieinlesen("AlleAutos");
-        ArrayList<MyStringids> ergebnis = new ArrayList<MyStringids>();
-        MyStringids Myautomarke = new MyStringids();
-        Myautomarke.MyStringidMarkenID = 200009788;
-        Myautomarke.MyStringidMarkenName = "Dodge";
-        Myautomarke.MyStringidModellNiceName = "avenger";
-        Myautomarke.MyStringidModellID = "Dodge_Avenger";
-        Myautomarke.MyStringidModellName = "Avenger";
-        Automarkenauslesen();
-        Automarkenmodelleauslesen(Myautomarke);
-        ergebnis = Automarkenmodelljahreauslesen(Myautomarke);
-        for (MyStringids auto: ergebnis
-             ) {
-            System.out.println(auto.MyStringidMarkenName + auto.MyStringidMarkenID + auto.MyStringidModellName + auto.MyStringidModellID + auto.MyStringidModellNiceName + auto.MyStringidJahr + auto.MyStringidJahrid);
+        Dateivorhanden("AlleAutos");
+        if(AlleAutosvorhanden)
+        {
+            textdatei = Textdateieinlesen("AlleAutos");
+        }
+        else
+        {
+                Internetanfrage("https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p","AlleAutos");
+        }
+
+
+    }
+
+    public static void Dateivorhanden(String Filename)
+    {
+        File fi = new File("");
+        String verz = fi.getAbsolutePath();
+        File file = new File(verz + "/" + Filename + ".txt");
+        if (file.exists())
+        {
+            AlleAutosvorhanden = true;
         }
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception
+    {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
 
         primaryStage.setTitle("CarSearcher");
@@ -110,7 +116,7 @@ public class MainClass extends Application  {
         //primaryStage.setFullScreen(true);
         primaryStage.show();
     }
-    
+
     public static class MyStringids //Allgemeine Klasse für Objekte mit String, Id
     {
         String MyStringidMarkenName = null;
@@ -214,24 +220,26 @@ public class MainClass extends Application  {
         return Automarkenmodelljahre;
     }
 
-    public static void Internetanfrage() //Nicht fertig
-    { /*
-        URL edmunds = new URL("https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p");
+    public static void Internetanfrage(String Internetadresse, String Dateiname) throws IOException //Internetanfrage
+    {
+        String Textdatei = new String();
+        URL edmunds = new URL(Internetadresse);
         URLConnection yc = edmunds.openConnection();
         BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
         String inputLine;
         while ((inputLine = in.readLine()) != null)
         {
-                System.out.println(inputLine);
+            Textdatei += inputLine;
         }
-        in.close();*/
+        in.close();
+        Textdateischreiben(Dateiname, Textdatei);
     }
 
-    public static void Textdateischreiben(String filename, String eingabeText) throws IOException
+    public static void Textdateischreiben(String filename, String eingabeText) throws IOException //Textdateischreiben
     {
         File fi = new File("");
         String verz = fi.getAbsolutePath();
-        FileWriter fw = new FileWriter(verz + "/" + filename + ".txt");
+        FileWriter fw = new FileWriter(verz + "/" + filename + ".txt"); //Datei mit eingegebenem Namen in Ordner des Programms
         BufferedWriter bw = new BufferedWriter(fw);
         bw.write(eingabeText);
         bw.close();
