@@ -6,6 +6,9 @@ import java.io.*;
 import java.util.ArrayList;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import java.net.*;
+
+import static javafx.application.Application.launch;
 
 public class MainClass {
     public static String source = new String("C:\\Users\\buergi\\DHBW\\AlleAutos.txt");
@@ -73,6 +76,7 @@ public class MainClass {
 
     public static void main(String[] args) throws Exception
     {
+        launch(args);
         textdatei = Textdateieinlesen("AlleAutos");
         ArrayList<MyStringids> ergebnis = new ArrayList<MyStringids>();
         MyStringids Myautomarke = new MyStringids();
@@ -94,6 +98,7 @@ public class MainClass {
     {
         String MyStringidMarkenName = null;
         double MyStringidMarkenID = 0;
+
         String MyStringidModellName = null;
         String MyStringidModellNiceName = null;
         String MyStringidModellID = null;
@@ -193,8 +198,8 @@ public class MainClass {
         return Automarkenmodelljahre;
     }
 
-    public static void Internetanfrage() //Nicht fertig
-    { /*
+    public static void Internetanfrage() throws IOException //API aus Internet anfragen
+    {
         URL edmunds = new URL("https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p");
         URLConnection yc = edmunds.openConnection();
         BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
@@ -203,7 +208,7 @@ public class MainClass {
         {
                 System.out.println(inputLine);
         }
-        in.close();*/
+        in.close();
     }
 
     public static void Textdateischreiben(String filename, String eingabeText) throws IOException
@@ -215,5 +220,7 @@ public class MainClass {
         bw.write(eingabeText);
         bw.close();
     }
+
+
 
 }
