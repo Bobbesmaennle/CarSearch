@@ -21,6 +21,7 @@ public class MainClass extends Application  {
     public static JComboBox cbbrand = new JComboBox();
     public static Button btnsuchen = new Button();
     public static String textdatei;
+    public static boolean textdateivorhanden = false;
 
     private static String Textdateieinlesen(String filename) //Textdatei mit Json Objekten einlesen
     {
@@ -245,4 +246,24 @@ public class MainClass extends Application  {
         bw.close();
     }
 
+    public static void Textdateivorhandenüberprüfen (String filename) throws IOException {
+        File file = new File(filename);
+        if (file.exists())
+        {
+            textdateivorhanden = true;
+            Textdateivorhanden(filename,"");
+        }
+        else
+        {
+            textdateivorhanden = false;
+            Textdateivorhanden(filename,"");
+        }
+    }
+
+    public static void Textdateivorhanden (String Dateiname, String Internetadresse) throws IOException {
+        if (!textdateivorhanden)
+        {
+            Internetanfrage(Dateiname, Internetadresse);
+        }
+    }
 }
