@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.net.*;
+import java.util.Calendar;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -154,32 +156,73 @@ public class MainClass extends Application  {
 
     public static void main(String[] args) throws Exception
     {
-        //Textdateivorhanden("AlleAutos");
+        //Textdateivorhanden("AlleAutos", "https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p");
         //Internetanfrage("https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p","AlleAutos");
-        Textdateieinlesen("AlleAutos");
+        //textdatei = Textdateieinlesen("AlleAutos");
         //launch(args);
     }
 
     public static void Internetanfrage(String Internetadresse, String Dateiname) throws IOException //Internetanfrage
     {
-        if(Anfragenzähler < 26)
-        {
-            String Textdatei = new String();
-            URL edmunds = new URL(Internetadresse);
-            URLConnection yc = edmunds.openConnection();
-            BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                Textdatei += inputLine;
+       String Textdatei = new String();
+       URL edmunds = new URL(Internetadresse);
+       URLConnection yc = edmunds.openConnection();
+       BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
+       String inputLine;
+       while ((inputLine = in.readLine()) != null)
+       {
+           Textdatei += inputLine;
+       }
+       in.close();
+       Textdateischreiben(Dateiname, Textdatei);
+    }
+
+    public static void Textdateivorhanden (String Dateiname, String Internetadresse) throws IOException
+    {
+        if (Anfragenzähler <= 25) {
+            File fi = new File("");
+            String verz = fi.getAbsolutePath();
+            Object[] options = {"Ja, Daten lokal laden", "Nein, Daten online laden"};
+            File file = new File(verz + "/" + Dateiname + ".txt");
+            if (file.exists()) {
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(file.lastModified());
+                System.out.println(cal.get(Calendar.DAY_OF_MONTH) + "." + (cal.get(Calendar.MONTH) + 1) + "." + cal.get(Calendar.YEAR));
+                int n = JOptionPane.showOptionDialog(null, "Die angeforderten Daten wurden lokal gefunden. Sie stammen vom " + cal.get(Calendar.DAY_OF_MONTH) + "." + (cal.get(Calendar.MONTH) + 1) + "." + cal.get(Calendar.YEAR) + ". Sollen sie geladen werden?", "Lokale Daten", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                if (n == 0) {
+                    textdatei = Textdateieinlesen(Dateiname);
+                } else {
+                    Internetanfrage(Internetadresse, Dateiname);
+                }
+            } else {
+                Internetanfrage(Internetadresse, Dateiname);
             }
-            in.close();
-            Textdateischreiben(Dateiname, Textdatei);
-        }
-        else
+        } else {
+            JOptionPane.showMessageDialog(null, "Das Maximum an Anfragen pro Tag ist erreicht. Die Daten können nicht online abgerufen werden.", "Anfragenmaximum", JOptionPane.INFORMATION_MESSAGE);
+            File fi = new File("");
+            String verz = fi.getAbsolutePath();
+            Object[] options = {"Ja, Daten lokal laden", "Nein, Programm schließen"};
+            File file = new File(verz + "/" + Dateiname + ".txt");
+            if (file.exists())
             {
-                JOptionPane.showMessageDialog(null, "Das Maximum an Anfragen pro Tag ist erreicht.", "Anfragenmaximum", JOptionPane.INFORMATION_MESSAGE);
-                Textdateivorhanden(Dateiname);
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(file.lastModified());
+                System.out.println(cal.get(Calendar.DAY_OF_MONTH) + "." + (cal.get(Calendar.MONTH) + 1) + "." + cal.get(Calendar.YEAR));
+                int n = JOptionPane.showOptionDialog(null, "Die angeforderten Daten wurden lokal gefunden. Sie stammen vom " + cal.get(Calendar.DAY_OF_MONTH) + "." + (cal.get(Calendar.MONTH) + 1) + "." + cal.get(Calendar.YEAR) + ". Sollen sie geladen werden?", "Lokale Daten", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+                if (n == 0)
+                {
+                    textdatei = Textdateieinlesen(Dateiname);
+                }
+                else
+                    {
+                        System.exit(0);
+                    }
             }
+            else
+                {
+                    JOptionPane.showMessageDialog(null, "Die angeforderten Daten konnten nicht gefunden werden. Das Programm beendet sich.", "Beenden", JOptionPane.ERROR_MESSAGE);
+                }
+        }
     }
 
     public static void Textdateischreiben(String filename, String eingabeText) throws IOException //Textdateischreiben
@@ -190,30 +233,5 @@ public class MainClass extends Application  {
         BufferedWriter bw = new BufferedWriter(fw);
         bw.write(eingabeText);
         bw.close();
-    }
-
-    public static void Textdateivorhanden (String Dateiname) throws IOException
-    {
-        File fi = new File("");
-        String verz = fi.getAbsolutePath();
-        Object[] options = {"Ja, Daten laden", "Nein, Programm beenden"};
-        File file = new File(verz + "/" + Dateiname + ".txt");
-        if (file.exists())
-        {
-            int n = JOptionPane.showOptionDialog(null, "Die angeforderten Daten wurden gefunden, sollen sie geladen werden?", "Offline Modus", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-            if(n == 0)
-            {
-                textdatei = Textdateieinlesen(Dateiname);
-            }
-            else
-            {
-                System.exit(0);
-            }
-        }
-        else
-        {
-            JOptionPane.showMessageDialog(null, "Die angeforderten Daten können nicht gefunden werden.", "Keine Daten gefunden", JOptionPane.ERROR_MESSAGE);
-            System.exit(0);
-        }
     }
 }
