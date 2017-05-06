@@ -15,9 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
-          style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.3" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.3" />
@@ -52,16 +50,16 @@
                 </VBox.margin>
             </HBox>
             <HBox alignment="CENTER" prefHeight="55.0" prefWidth="600.0" stylesheets="@../stylesheetDemo.css">
-                <ComboBox editable="true" prefWidth="150.0" promptText="Marke" />
-                <ComboBox editable="true" prefWidth="150.0" promptText="Modell">
+                <ComboBox fx:id="brand" editable="true" onContextMenuRequested="#fillDropdownBrand" onInputMethodTextChanged="#fillDropdownBrand" onKeyReleased="#fillDropdownBrand" onMouseClicked="#fillDropdownBrand" onMouseDragReleased="#fillDropdownBrand" onMouseReleased="#fillDropdownBrand" prefWidth="150.0" promptText="Marke" />
+                <ComboBox fx:id="modell" editable="true" prefWidth="150.0" promptText="Modell">
                     <HBox.margin>
                         <Insets left="10.0" />
                     </HBox.margin></ComboBox>
-                <ComboBox editable="true" prefWidth="150.0" promptText="Baujahr">
+                <ComboBox fx:id="year" editable="true" prefWidth="150.0" promptText="Baujahr">
                     <HBox.margin>
                         <Insets left="10.0" />
                     </HBox.margin></ComboBox>
-                <Button text="Favoriten" visible="true">
+                <Button fx:id="Favourites" onAction="#addCellToCarListViewer" text="Favoriten" visible="true">
                     <HBox.margin>
                         <Insets left="10.0" />
                     </HBox.margin></Button>
@@ -83,22 +81,25 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
         <children>
-            <ListView prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Gray;" GridPane.columnIndex="0" GridPane.halignment="CENTER"
-                      GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <ListView fx:id="CarListViewer" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Gray;" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
 
-                <Button text="Marke/Modell_1">
-                    <HBox.margin>
-                        <Insets left="10.0" />
-                    </HBox.margin></Button>
-                <Button text="Marke/Modell_1">
-                    <HBox.margin>
-                        <Insets left="10.0" />
-                    </HBox.margin></Button>
+
+
+                <!--<Button alignment="CENTER" prefWidth="185.0" text="Marke/Modell_1">-->
+                    <!--<HBox.margin>-->
+                        <!--<Insets left="10.0" />-->
+                    <!--</HBox.margin>-->
+                <!--</Button>-->
+                <!--<Button text="Marke/Modell_2">-->
+                    <!--<HBox.margin>-->
+                        <!--<Insets left="10.0" />-->
+                    <!--</HBox.margin>-->
+                <!--</Button>-->
 
             </ListView>
 
 
-            <VBox visible="true" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: Lightgray;" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: Lightgray;" visible="true" GridPane.columnIndex="1" GridPane.rowIndex="0">
                 <Label alignment="CENTER" contentDisplay="CENTER" text="Welcome to the CarSearch!" visible="true" VBox.vgrow="ALWAYS">
                     <font>
                         <Font size="30.0" />
@@ -106,8 +107,7 @@
                 <Label alignment="CENTER" contentDisplay="CENTER" text="Please select car to start searching." textAlignment="CENTER" visible="true" />
             </VBox>
 
-            <ListView visible="false" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Gray;" GridPane.columnIndex="1" GridPane.rowIndex="0" GridPane.halignment="CENTER"
-                      GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <ListView prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Gray;" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
 
                 <Button text="Auto_1">
                     <HBox.margin>
@@ -124,43 +124,5 @@
 
         </children>
 
-
-
-
-
-
     </GridPane>
-
-
-
-
-
-
-
-    <!--  <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="2">
-
-
-
-
-
-
-          <ListView editable="true" fixedCellSize="0.0" prefHeight="0.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-
-          <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
-                 <Label alignment="CENTER" contentDisplay="CENTER" text="Welcome to the CarSearch!">
-                     <font>
-                         <Font size="30.0" />
-                     </font></Label>
-                 <Label alignment="CENTER" contentDisplay="CENTER" text="Please select car to start searching." textAlignment="CENTER" />
-          </VBox>
-
-
-
-
-      </HBox>
-
-
-      -->
-
-
 </GridPane>

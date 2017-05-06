@@ -15,6 +15,7 @@ import javafx.application.Application;
 public class MainClass extends Application  {
     public static String textdatei;
     public static int Anfragenzähler = 0;
+    public static boolean AlleAutosvorhanden;
 
     private static String Textdateieinlesen(String filename) //Textdatei mit Json Objekten einlesen
     {
@@ -51,25 +52,25 @@ public class MainClass extends Application  {
 
     public static void brandsadd(String carbrand) //Marke zur Combobox für Auto-Marken hinzufügen
     {
-        cbbrand.addItem(carbrand);
+        //cbbrand.addItem(carbrand);
     }
 
     public static void modeladd(String carmodel) //Model zur Combobox für Auto-Modelle hinzufügen
     {
-        cbmodel.addItem(carmodel);
+        //cbmodel.addItem(carmodel);
     }
 
     public static void yearadd(String caryear) //Baujahr zur Combobox für Baujahre hinzufügen
     {
-        cbyear.addItem(caryear);
+        //cbyear.addItem(caryear);
     }
 
     public static void suchenclick() //Suchen Methode
     {
-        String carbrand = cbbrand.getSelectedItem().toString();
-        String carmodel = cbmodel.getSelectedItem().toString();
-        String caryear = cbyear.getSelectedItem().toString();
-        System.out.println(carbrand + " " + carmodel + " " + caryear);
+//        String carbrand = cbbrand.getSelectedItem().toString();
+//        String carmodel = cbmodel.getSelectedItem().toString();
+//        String caryear = cbyear.getSelectedItem().toString();
+//        System.out.println(carbrand + " " + carmodel + " " + caryear);
     }
 
     public static void main(String[] args) throws Exception
@@ -77,15 +78,15 @@ public class MainClass extends Application  {
 
         //Zum Starten der GUI folgendes dekommentieren:
         launch(args);
-        Dateivorhanden("AlleAutos");
-        if(AlleAutosvorhanden)
-        {
-            textdatei = Textdateieinlesen("AlleAutos");
-        }
-        else
-        {
-                Internetanfrage("https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p","AlleAutos");
-        }
+        //Dateivorhanden("AlleAutos");
+//        if(AlleAutosvorhanden)
+//        {
+//            textdatei = Textdateieinlesen("AlleAutos");
+//        }
+//        else
+//        {
+//                //Internetanfrage("https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p","AlleAutos");
+//        }
 
 
     }
@@ -204,13 +205,13 @@ public class MainClass extends Application  {
         return Automarkenmodelljahre;
     }
 
-    public static void main(String[] args) throws Exception
-    {
-        //Textdateivorhanden("AlleAutos");
-        //Internetanfrage("https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p","AlleAutos");
-        Textdateieinlesen("AlleAutos");
-        //launch(args);
-    }
+//    public static void main(String[] args) throws Exception
+//    {
+//        //Textdateivorhanden("AlleAutos");
+//        //Internetanfrage("https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p","AlleAutos");
+//        Textdateieinlesen("AlleAutos");
+//        //launch(args);
+//    }
 
     public static void Internetanfrage(String Internetadresse, String Dateiname) throws IOException //Internetanfrage
     {
