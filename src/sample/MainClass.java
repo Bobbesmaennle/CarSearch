@@ -1,7 +1,6 @@
 package sample;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.net.*;
@@ -14,23 +13,18 @@ import org.json.JSONObject;
 import javafx.application.Application;
 
 public class MainClass extends Application  {
-    public static String source = new String("C:\\Users\\buergi\\DHBW\\AlleAutos.txt");
-    public static boolean AlleAutosvorhanden = false;
-    public static JComboBox cbmodel = new JComboBox();
-    public static JComboBox cbyear = new JComboBox();
-    public static JComboBox cbbrand = new JComboBox();
-    public static Button btnsuchen = new Button();
     public static String textdatei;
+    public static int Anfragenzähler = 0;
 
     private static String Textdateieinlesen(String filename) //Textdatei mit Json Objekten einlesen
     {
         File fi = new File("");
-        String verz = fi.getAbsolutePath();
+        String verzeichnis = fi.getAbsolutePath();
         String[] parts = null;
         String part = "";
         BufferedReader br = null;
         try {
-            br = new BufferedReader(new FileReader(new File(verz + "/" + filename + ".txt")));
+            br = new BufferedReader(new FileReader(new File(verzeichnis + "/" + filename + ".txt")));
             String line;
             while ((line = br.readLine()) != null) {
                 parts = line.split("\r");
@@ -111,23 +105,11 @@ public class MainClass extends Application  {
     public void start(Stage primaryStage) throws Exception
     {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-
         primaryStage.setTitle("CarSearcher");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.setMaximized(true);
         //primaryStage.setFullScreen(true);
         primaryStage.show();
-    }
-
-    public static class MyStringids //Allgemeine Klasse für Objekte mit String, Id
-    {
-        String MyStringidMarkenName = null;
-        double MyStringidMarkenID = 0;
-        String MyStringidModellName = null;
-        String MyStringidModellNiceName = null;
-        String MyStringidModellID = null;
-        int MyStringidJahr = 0;
-        double MyStringidJahrid = 0;
     }
 
     public static ArrayList Automarkenauslesen() //Alle Automarken
@@ -222,19 +204,34 @@ public class MainClass extends Application  {
         return Automarkenmodelljahre;
     }
 
+    public static void main(String[] args) throws Exception
+    {
+        //Textdateivorhanden("AlleAutos");
+        //Internetanfrage("https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p","AlleAutos");
+        Textdateieinlesen("AlleAutos");
+        //launch(args);
+    }
+
     public static void Internetanfrage(String Internetadresse, String Dateiname) throws IOException //Internetanfrage
     {
-        String Textdatei = new String();
-        URL edmunds = new URL(Internetadresse);
-        URLConnection yc = edmunds.openConnection();
-        BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-        String inputLine;
-        while ((inputLine = in.readLine()) != null)
+        if(Anfragenzähler < 26)
         {
-            Textdatei += inputLine;
+            String Textdatei = new String();
+            URL edmunds = new URL(Internetadresse);
+            URLConnection yc = edmunds.openConnection();
+            BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
+            String inputLine;
+            while ((inputLine = in.readLine()) != null) {
+                Textdatei += inputLine;
+            }
+            in.close();
+            Textdateischreiben(Dateiname, Textdatei);
         }
-        in.close();
-        Textdateischreiben(Dateiname, Textdatei);
+        else
+            {
+                JOptionPane.showMessageDialog(null, "Das Maximum an Anfragen pro Tag ist erreicht.", "Anfragenmaximum", JOptionPane.INFORMATION_MESSAGE);
+                Textdateivorhanden(Dateiname);
+            }
     }
 
     public static void Textdateischreiben(String filename, String eingabeText) throws IOException //Textdateischreiben
@@ -247,4 +244,28 @@ public class MainClass extends Application  {
         bw.close();
     }
 
+    public static void Textdateivorhanden (String Dateiname) throws IOException
+    {
+        File fi = new File("");
+        String verz = fi.getAbsolutePath();
+        Object[] options = {"Ja, Daten laden", "Nein, Programm beenden"};
+        File file = new File(verz + "/" + Dateiname + ".txt");
+        if (file.exists())
+        {
+            int n = JOptionPane.showOptionDialog(null, "Die angeforderten Daten wurden gefunden, sollen sie geladen werden?", "Offline Modus", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+            if(n == 0)
+            {
+                textdatei = Textdateieinlesen(Dateiname);
+            }
+            else
+            {
+                System.exit(0);
+            }
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Die angeforderten Daten können nicht gefunden werden.", "Keine Daten gefunden", JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
+    }
 }
