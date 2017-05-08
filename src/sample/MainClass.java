@@ -77,20 +77,11 @@ public class MainClass extends Application  {
 
     public static void main(String[] args) throws Exception
     {
+        Textdateivorhanden("AlleAutos","https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p");
 
         //Zum Starten der GUI folgendes dekommentieren:
+
         launch(args);
-        //Dateivorhanden("AlleAutos");
-//        if(AlleAutosvorhanden)
-//        {
-//            textdatei = Textdateieinlesen("AlleAutos");
-//        }
-//        else
-//        {
-//                //Internetanfrage("https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p","AlleAutos");
-//        }
-
-
     }
 
     public static void Dateivorhanden(String Filename)
@@ -207,13 +198,6 @@ public class MainClass extends Application  {
         return Automarkenmodelljahre;
     }
 
-    public static void main(String[] args) throws Exception
-    {
-        //Textdateivorhanden("AlleAutos", "https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p");
-        //Internetanfrage("https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p","AlleAutos");
-        //textdatei = Textdateieinlesen("AlleAutos");
-        //launch(args);
-    }
 
     public static void Internetanfrage(String Internetadresse, String Dateiname) throws IOException //Internetanfrage
     {
