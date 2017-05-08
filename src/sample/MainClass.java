@@ -197,7 +197,8 @@ public class MainClass extends Application {
         Textdateischreiben(Dateiname, Textdatei1);
     }
 
-    public static void Textdateivorhanden(String Dateiname, String Internetadresse) throws IOException {
+    public static void Textdateivorhanden(String Dateiname, String Internetadresse) throws IOException
+    {
         if (Anfragenzähler <= 25) {
             File fi = new File("");
             String verz = fi.getAbsolutePath();
