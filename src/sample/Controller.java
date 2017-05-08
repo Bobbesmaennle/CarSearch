@@ -23,6 +23,7 @@ public class Controller
 
         brand.show();
 
+        //Lädt alle Automarken in die ComboBox "brand"
         ArrayList<MyStringids> AlleAutomarken = new ArrayList<MyStringids>();
             AlleAutomarken = MainClass.Automarkenauslesen();
 
@@ -32,6 +33,8 @@ public class Controller
                         auto.MyStringidMarkenName
                     );
             }
+
+
 
 
 
