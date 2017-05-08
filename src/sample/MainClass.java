@@ -77,14 +77,12 @@ public class MainClass extends Application  {
 
     public static void main(String[] args) throws Exception
     {
-
-
-
-        Textdateivorhanden("AlleAutos", "https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p");
+        Textdateivorhanden("AlleAutos","https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p");
 
 
 
         //Zum Starten der GUI folgendes dekommentieren:
+
         launch(args);
     }
 
@@ -201,6 +199,7 @@ public class MainClass extends Application  {
         }
         return Automarkenmodelljahre;
     }
+
 
     public static void Internetanfrage(String Internetadresse, String Dateiname) throws IOException //Internetanfrage
     {
