@@ -200,7 +200,6 @@ public class MainClass extends Application  {
         return Automarkenmodelljahre;
     }
 
-
     public static void Internetanfrage(String Internetadresse, String Dateiname) throws IOException //Internetanfrage
     {
        String Textdatei = new String();
