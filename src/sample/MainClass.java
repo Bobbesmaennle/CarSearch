@@ -14,7 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import javafx.application.Application;
 
-public class MainClass extends Application  {
+public class MainClass extends Application {
     public static String textdatei;
     public static int Anfragenzähler = 0;
     public static boolean AlleAutosvorhanden;
@@ -75,31 +75,22 @@ public class MainClass extends Application  {
 //        System.out.println(carbrand + " " + carmodel + " " + caryear);
     }
 
-    public static void main(String[] args) throws Exception
-    {
-        Textdateivorhanden("AlleAutos","https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p");
-
-
-
-        //Zum Starten der GUI folgendes dekommentieren:
-
+    public static void main(String[] args) throws Exception {
+        Textdateivorhanden("AlleAutos", "https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p");
         launch(args);
     }
 
-    public static void Dateivorhanden(String Filename)
-    {
+    public static void Dateivorhanden(String Filename) {
         File fi = new File("");
         String verz = fi.getAbsolutePath();
         File file = new File(verz + "/" + Filename + ".txt");
-        if (file.exists())
-        {
+        if (file.exists()) {
             AlleAutosvorhanden = true;
         }
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception
-    {
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("CarSearcher");
         primaryStage.setScene(new Scene(root, 300, 275));
@@ -115,8 +106,7 @@ public class MainClass extends Application  {
         JSONObject json = new JSONObject(textdatei);
         int anzahlautomarken = json.getInt("makesCount");
         JSONArray makesarray = json.getJSONArray("makes");
-        for(int i = 0; i < anzahlautomarken; i++)
-        {
+        for (int i = 0; i < anzahlautomarken; i++) {
             JSONObject automarke = makesarray.getJSONObject(i);
             String automarkenname = automarke.getString("name");
             Double automarkenid = automarke.getDouble("id");
@@ -134,16 +124,13 @@ public class MainClass extends Application  {
         JSONObject json = new JSONObject(textdatei);
         int anzahlautomarken = json.getInt("makesCount");
         JSONArray makesarray = json.getJSONArray("makes");
-        for(int i = 0; i < anzahlautomarken; i++)
-        {
+        for (int i = 0; i < anzahlautomarken; i++) {
             JSONObject automarke = makesarray.getJSONObject(i);
             Double automarkenid = automarke.getDouble("id");
-            if(automarkenid == Automarke.MyStringidMarkenID)
-            {
+            if (automarkenid == Automarke.MyStringidMarkenID) {
                 JSONArray automarkenmodelle = automarke.getJSONArray("models");
                 int anzahlmodelle = automarkenmodelle.length();
-                for(int j = 0; j < anzahlmodelle; j++)
-                {
+                for (int j = 0; j < anzahlmodelle; j++) {
                     JSONObject modell = automarkenmodelle.getJSONObject(j);
                     MyStringids Myautomarkenmodell = new MyStringids();
                     Myautomarkenmodell.MyStringidModellID = modell.getString("id");
@@ -158,30 +145,25 @@ public class MainClass extends Application  {
         return Automarkenmodelle;
     }
 
-    public static ArrayList Automarkenmodelljahreauslesen (MyStringids Automodell) //Jahre zu einem Automodell
+    public static ArrayList Automarkenmodelljahreauslesen(MyStringids Automodell) //Jahre zu einem Automodell
     {
         ArrayList<MyStringids> Automarkenmodelljahre = new ArrayList<MyStringids>();
         JSONObject json = new JSONObject(textdatei);
         int anzahlautomarken = json.getInt("makesCount");
         JSONArray makesarray = json.getJSONArray("makes");
-        for(int i = 0; i < anzahlautomarken; i++)
-        {
+        for (int i = 0; i < anzahlautomarken; i++) {
             JSONObject automarke = makesarray.getJSONObject(i);
             Double automarkenid = automarke.getDouble("id");
-            if(automarkenid == Automodell.MyStringidMarkenID)
-            {
+            if (automarkenid == Automodell.MyStringidMarkenID) {
                 JSONArray automarkenmodelle = automarke.getJSONArray("models");
                 int anzahlmodelle = automarkenmodelle.length();
-                for(int j = 0; j < anzahlmodelle; j++)
-                {
+                for (int j = 0; j < anzahlmodelle; j++) {
                     JSONObject modell = automarkenmodelle.getJSONObject(j);
                     String automodellid = modell.getString("id");
-                    if(automodellid.equals(Automodell.MyStringidModellID))
-                    {
+                    if (automodellid.equals(Automodell.MyStringidModellID)) {
                         JSONArray automodelljahre = modell.getJSONArray("years");
                         int jahreanzahl = automodelljahre.length();
-                        for(int k = 0; k < jahreanzahl; k++)
-                        {
+                        for (int k = 0; k < jahreanzahl; k++) {
                             JSONObject jahr = automodelljahre.getJSONObject(k);
                             MyStringids Myautomarkenmodelljahr = new MyStringids();
                             Myautomarkenmodelljahr.MyStringidModellName = modell.getString("name");
@@ -202,21 +184,20 @@ public class MainClass extends Application  {
 
     public static void Internetanfrage(String Internetadresse, String Dateiname) throws IOException //Internetanfrage
     {
-       String Textdatei = new String();
-       URL edmunds = new URL(Internetadresse);
-       URLConnection yc = edmunds.openConnection();
-       BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
-       String inputLine;
-       while ((inputLine = in.readLine()) != null)
-       {
-           Textdatei += inputLine;
-       }
-       in.close();
-       Textdateischreiben(Dateiname, Textdatei);
+        String Textdatei = new String();
+        URL edmunds = new URL(Internetadresse);
+        URLConnection yc = edmunds.openConnection();
+        BufferedReader in = new BufferedReader(new InputStreamReader(yc.getInputStream()));
+        String inputLine;
+        while ((inputLine = in.readLine()) != null) {
+            Textdatei += inputLine;
+        }
+        in.close();
+        String Textdatei1 = Textdatei.substring(7, Textdatei.length() - 1);
+        Textdateischreiben(Dateiname, Textdatei1);
     }
 
-    public static void Textdateivorhanden (String Dateiname, String Internetadresse) throws IOException
-    {
+    public static void Textdateivorhanden(String Dateiname, String Internetadresse) throws IOException {
         if (Anfragenzähler <= 25) {
             File fi = new File("");
             String verz = fi.getAbsolutePath();
@@ -225,15 +206,16 @@ public class MainClass extends Application  {
             if (file.exists()) {
                 Calendar cal = Calendar.getInstance();
                 cal.setTimeInMillis(file.lastModified());
-                System.out.println(cal.get(Calendar.DAY_OF_MONTH) + "." + (cal.get(Calendar.MONTH) + 1) + "." + cal.get(Calendar.YEAR));
                 int n = JOptionPane.showOptionDialog(null, "Die angeforderten Daten wurden lokal gefunden. Sie stammen vom " + cal.get(Calendar.DAY_OF_MONTH) + "." + (cal.get(Calendar.MONTH) + 1) + "." + cal.get(Calendar.YEAR) + ". Sollen sie geladen werden?", "Lokale Daten", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 if (n == 0) {
                     textdatei = Textdateieinlesen(Dateiname);
                 } else {
                     Internetanfrage(Internetadresse, Dateiname);
+                    textdatei = Textdateieinlesen(Dateiname);
                 }
             } else {
                 Internetanfrage(Internetadresse, Dateiname);
+                textdatei = Textdateieinlesen(Dateiname);
             }
         } else {
             JOptionPane.showMessageDialog(null, "Das Maximum an Anfragen pro Tag ist erreicht. Die Daten können nicht online abgerufen werden.", "Anfragenmaximum", JOptionPane.INFORMATION_MESSAGE);
@@ -241,27 +223,21 @@ public class MainClass extends Application  {
             String verz = fi.getAbsolutePath();
             Object[] options = {"Ja, Daten lokal laden", "Nein, Programm schließen"};
             File file = new File(verz + "/" + Dateiname + ".txt");
-            if (file.exists())
-            {
+            if (file.exists()) {
                 Calendar cal = Calendar.getInstance();
                 cal.setTimeInMillis(file.lastModified());
-                System.out.println(cal.get(Calendar.DAY_OF_MONTH) + "." + (cal.get(Calendar.MONTH) + 1) + "." + cal.get(Calendar.YEAR));
                 int n = JOptionPane.showOptionDialog(null, "Die angeforderten Daten wurden lokal gefunden. Sie stammen vom " + cal.get(Calendar.DAY_OF_MONTH) + "." + (cal.get(Calendar.MONTH) + 1) + "." + cal.get(Calendar.YEAR) + ". Sollen sie geladen werden?", "Lokale Daten", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-                if (n == 0)
-                {
+                if (n == 0) {
                     textdatei = Textdateieinlesen(Dateiname);
+                } else {
+                    System.exit(0);
                 }
-                else
-                    {
-                        System.exit(0);
-                    }
+            } else {
+                JOptionPane.showMessageDialog(null, "Die angeforderten Daten konnten nicht gefunden werden. Das Programm beendet sich.", "Beenden", JOptionPane.ERROR_MESSAGE);
             }
-            else
-                {
-                    JOptionPane.showMessageDialog(null, "Die angeforderten Daten konnten nicht gefunden werden. Das Programm beendet sich.", "Beenden", JOptionPane.ERROR_MESSAGE);
-                }
         }
     }
+
 
     public static void Textdateischreiben(String filename, String eingabeText) throws IOException //Textdateischreiben
     {
