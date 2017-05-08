@@ -19,13 +19,15 @@ public class Controller
     @FXML public ComboBox year;
     @FXML public ListView CarListViewer;
 
+    private String selectedBrand;
+
     public void fillDropdownBrand(){
 
         brand.show();
 
         //Lädt alle Automarken in die ComboBox "brand"
         ArrayList<MyStringids> AlleAutomarken = new ArrayList<MyStringids>();
-            AlleAutomarken = MainClass.Automarkenauslesen();
+        AlleAutomarken = MainClass.Automarkenauslesen();
 
             for (MyStringids auto : AlleAutomarken
                     ){
@@ -33,6 +35,9 @@ public class Controller
                         auto.MyStringidMarkenName
                     );
             }
+
+
+
 
 
 
@@ -77,9 +82,16 @@ public class Controller
 
     public void fillDropdownModell(){
 
+        //Lädt alle Automarken in die ComboBox "brand"
+        ArrayList<MyStringids> AlleAutomodelle = new ArrayList<MyStringids>();
+      //  AlleAutomodelle = MainClass.Automarkenmodelleauslesen(selectedBrand);
 
-
-        //MainClass.modeladd(modell.getValue().toString());
+        for (MyStringids auto : AlleAutomodelle
+                ){
+            brand.getItems().addAll(
+                    auto.MyStringidModellName
+            );
+        }
 
     }
 
