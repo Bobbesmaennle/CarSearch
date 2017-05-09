@@ -1,6 +1,3 @@
-/**
- * Created by buergi on 03.05.2017.
- */
 package sample;
 
 import javafx.collections.FXCollections;
@@ -8,9 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
-
 import java.util.ArrayList;
-import java.util.Observable;
 
 public class Controller
 {
@@ -19,15 +14,13 @@ public class Controller
     @FXML public ComboBox year;
     @FXML public ListView CarListViewer;
 
-    private String selectedBrand;
-
-    public void fillDropdownBrand(){
-
+    public void fillDropdownBrand()
+    {
         brand.show();
-
         //Lädt alle Automarken in die ComboBox "brand"
         ArrayList<MyStringids> AlleAutomarken = new ArrayList<MyStringids>();
-        AlleAutomarken = MainClass.Automarkenauslesen();
+        String textdatei = Datenverwaltung.Textdateieinlesen("AlleAutos");
+        AlleAutomarken = Autoauslesen.Automarkenauslesen(textdatei);
 
             for (MyStringids auto : AlleAutomarken
                     ){
@@ -35,15 +28,6 @@ public class Controller
                         auto.MyStringidMarkenName
                     );
             }
-
-
-
-
-
-
-
-
-
 //        if(brand.getItems().size() > 0){
 //
 //                brand.getItems().clear();
@@ -80,26 +64,36 @@ public class Controller
 
     }
 
-    public void fillDropdownModell(){
-
-        //Lädt alle Automarken in die ComboBox "brand"
+    public void fillDropdownModell()
+    {
+        modell.show();
+        //Lädt alle Automodelle in die ComboBox "modell"
         ArrayList<MyStringids> AlleAutomodelle = new ArrayList<MyStringids>();
-      //  AlleAutomodelle = MainClass.Automarkenmodelleauslesen(selectedBrand);
-
+        String textdatei = Datenverwaltung.Textdateieinlesen("AlleAutos");
+        Object aktuellemarke = brand.getItems().get(0);
+        AlleAutomodelle = Autoauslesen.Automarkenmodelleauslesen(textdatei,(MyStringids) aktuellemarke /*Automarke hinzufügen*/ );
         for (MyStringids auto : AlleAutomodelle
                 ){
             brand.getItems().addAll(
                     auto.MyStringidModellName
             );
         }
-
     }
 
-    public void fillDropdownYear(){
-
-
-        //MainClass.yearadd(year.getValue().toString());
-
+    public void fillDropdownYear()
+    {
+        year.show();
+        //Lädt alle Automodelljahre in die ComboBox "year"
+        ArrayList<MyStringids> AlleAutomodelljahre = new ArrayList<MyStringids>();
+        String textdatei = Datenverwaltung.Textdateieinlesen("AlleAutos");
+        Object aktuellesmodell = modell.getItems().get(0);
+        AlleAutomodelljahre = Autoauslesen.Automarkenmodelljahreauslesen(textdatei,(MyStringids) aktuellesmodell /*Automodell hinzufügen*/ );
+        for (MyStringids auto : AlleAutomodelljahre
+                ){
+            brand.getItems().addAll(
+                   auto.MyStringidJahr
+            );
+        }
     }
 
     public void addCellToCarListViewer(){
@@ -108,9 +102,6 @@ public class Controller
                 "Auto1", "Auto2", "Auto3", "Auto4");
 
         CarListViewer.setItems(items);
-
-
-
 
     }
 }
