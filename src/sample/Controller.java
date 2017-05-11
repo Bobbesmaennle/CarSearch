@@ -14,6 +14,8 @@ public class Controller
     @FXML public ComboBox year;
     @FXML public ListView CarListViewer;
 
+    private String selectedCar;
+
     public void fillDropdownBrand()
     {
         brand.show();
@@ -67,16 +69,25 @@ public class Controller
     public void fillDropdownModell()
     {
         modell.show();
+
+        if(brand.getValue().toString() != ""){
+
+
         //Lädt alle Automodelle in die ComboBox "modell"
         ArrayList<MyStringids> AlleAutomodelle = new ArrayList<MyStringids>();
         String textdatei = Datenverwaltung.Textdateieinlesen("AlleAutos");
-        Object aktuellemarke = brand.getItems().get(0);
+        Object aktuellemarke = brand.getValue();
         AlleAutomodelle = Autoauslesen.Automarkenmodelleauslesen(textdatei,(MyStringids) aktuellemarke /*Automarke hinzufügen*/ );
         for (MyStringids auto : AlleAutomodelle
                 ){
             brand.getItems().addAll(
                     auto.MyStringidModellName
             );
+        }
+
+
+
+
         }
     }
 
@@ -104,4 +115,6 @@ public class Controller
         CarListViewer.setItems(items);
 
     }
+
+
 }

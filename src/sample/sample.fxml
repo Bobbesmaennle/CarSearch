@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -15,7 +16,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.TextField?>
 <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.3" />
@@ -51,8 +51,8 @@
                 </VBox.margin>
             </HBox>
             <HBox alignment="CENTER" prefHeight="55.0" prefWidth="600.0" stylesheets="@../stylesheetDemo.css">
-                <ComboBox fx:id="brand" editable="true" onContextMenuRequested="#fillDropdownBrand" onInputMethodTextChanged="#fillDropdownBrand" onKeyReleased="#fillDropdownBrand" onMouseClicked="#fillDropdownBrand" onMouseDragReleased="#fillDropdownBrand" onMouseReleased="#fillDropdownBrand" prefWidth="150.0" promptText="Marke" />
-                <ComboBox fx:id="modell" editable="true" prefWidth="150.0" promptText="Modell">
+                <ComboBox fx:id="brand" editable="true" onContextMenuRequested="#fillDropdownBrand" onInputMethodTextChanged="#fillDropdownBrand" onKeyReleased="#fillDropdownBrand" onMouseDragReleased="#fillDropdownBrand" onMouseReleased="#fillDropdownBrand" prefWidth="150.0" promptText="Marke" />
+                <ComboBox fx:id="modell" editable="true" onContextMenuRequested="#fillDropdownModell" onInputMethodTextChanged="#fillDropdownModell" onKeyReleased="#fillDropdownModell" onMouseDragReleased="#fillDropdownModell" onMouseReleased="#fillDropdownModell" prefWidth="150.0" promptText="Modell">
                     <HBox.margin>
                         <Insets left="10.0" />
                     </HBox.margin></ComboBox>
@@ -83,7 +83,6 @@
         </rowConstraints>
         <children>
             <ListView fx:id="CarListViewer" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Gray;" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-
 
 
                 <!--<Button alignment="CENTER" prefWidth="185.0" text="Marke/Modell_1">-->
