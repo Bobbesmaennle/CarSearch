@@ -5,8 +5,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class Autoauslesen
-{
+public class Autoauslesen {
     public static ArrayList Automarkenauslesen(String textdatei) //Alle Automarken
     {
         ArrayList<MyStringids> Automarken = new ArrayList<MyStringids>();
@@ -90,3 +89,5 @@ public class Autoauslesen
         return Automarkenmodelljahre;
     }
 }
+
+

@@ -55,8 +55,15 @@ public class Datenverwaltung
             Textdatei += inputLine;
         }
         in.close();
-        String Textdatei1 = Textdatei.substring(7, Textdatei.length() - 1);
-        Textdateischreiben(Dateiname, Textdatei1);
+        if(Textdatei.contains("string"))
+        {
+            String Textdatei1 = Textdatei.substring(7, Textdatei.length() - 1);
+            Textdateischreiben(Dateiname, Textdatei1);
+        }
+        else
+            {
+                Textdateischreiben(Dateiname, Textdatei);
+            }
     }
 
     public static void Textdateivorhanden(String Dateiname, String Internetadresse) throws IOException
