@@ -3,6 +3,7 @@ package sample;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class Autoauslesen {
@@ -17,9 +18,11 @@ public class Autoauslesen {
             JSONObject automarke = makesarray.getJSONObject(i);
             String automarkenname = automarke.getString("name");
             Double automarkenid = automarke.getDouble("id");
+            String automarkennicename = automarke.getString("niceName");
             MyStringids Myautomarke = new MyStringids();
             Myautomarke.MyStringidMarkenID = automarkenid;
             Myautomarke.MyStringidMarkenName = automarkenname;
+            Myautomarke.MyStringidMarkenNiceName = automarkennicename;
             Automarken.add(Myautomarke);
         }
         return Automarken;
@@ -87,6 +90,12 @@ public class Autoauslesen {
             }
         }
         return Automarkenmodelljahre;
+    }
+
+
+    public static void Autodetails (MyStringids auto) throws IOException
+    {
+        Datenverwaltung.Textdateivorhanden(auto.MyStringidModellName,  "https://api.edmunds.com/api/vehicle/v2/" + auto.MyStringidMarkenNiceName + "/" + auto.MyStringidModellNiceName + "/" + auto.MyStringidJahr + "/styles?state=used&view=full&fmt=json&api_key=c95hzyxj92wzfjegtsj2376p");
     }
 }
 

@@ -4,6 +4,7 @@ public class MyStringids
 {
     String MyStringidMarkenName = null;
     double MyStringidMarkenID = 0;
+    String MyStringidMarkenNiceName = null;
     String MyStringidModellName = null;
     String MyStringidModellNiceName = null;
     String MyStringidModellID = null;
