@@ -10,7 +10,6 @@ public class Autoauslesen {
     public static ArrayList Automarkenauslesen(String textdatei) //Alle Automarken
     {
         ArrayList<MyStringids> Automarken = new ArrayList<MyStringids>();
-        JSONArray alleAutomarken;
         JSONObject json = new JSONObject(textdatei);
         int anzahlautomarken = json.getInt("makesCount");
         JSONArray makesarray = json.getJSONArray("makes");
@@ -92,11 +91,79 @@ public class Autoauslesen {
         return Automarkenmodelljahre;
     }
 
-
     public static void Autodetails (MyStringids auto) throws IOException
     {
         Datenverwaltung.Textdateivorhanden(auto.MyStringidModellName,  "https://api.edmunds.com/api/vehicle/v2/" + auto.MyStringidMarkenNiceName + "/" + auto.MyStringidModellNiceName + "/" + auto.MyStringidJahr + "/styles?state=used&view=full&fmt=json&api_key=c95hzyxj92wzfjegtsj2376p");
     }
+
+    public static ArrayList Autodetailsauslesen (String textdatei)
+    {
+        ArrayList<MyStringids> Autodetails = new ArrayList<MyStringids>();
+        ArrayList<Double> enginecylinders = new ArrayList<Double>();
+        ArrayList<Double> enginehorsepowers = new ArrayList<Double>();
+        ArrayList<Double> enginetorques = new ArrayList<Double>();
+        ArrayList<String> transmissiontypes = new ArrayList<String>();
+        ArrayList<Double> transmissionshifts = new ArrayList<Double>();
+        JSONObject json = new JSONObject(textdatei);
+        int anzahlautostyles = json.getInt("stylesCount");
+        JSONArray stylesarray = json.getJSONArray("styles");
+        for (int i = 0; i < anzahlautostyles; i++)
+        {
+            JSONObject autostyle = stylesarray.getJSONObject(i);
+            JSONObject years = autostyle.getJSONObject("year");
+            double yearid = years.getDouble("id");
+            int year = years.getInt("year");
+
+            JSONObject make = autostyle.getJSONObject("make");
+            int makeid = make.getInt("id");
+            String  makename = make.getString("name");
+            String makenicename = make.getString("niceName");
+
+            JSONObject model = autostyle.getJSONObject("model");
+            String modelid = model.getString("id");
+            String modelname = model.getString("name");
+            String modelnicename = model.getString("niceName");
+
+            JSONObject engine = autostyle.getJSONObject("engine");
+            double enginecylinder = engine.getDouble("cylinder");
+            double enginehorsepower = engine.getDouble("horsepower");
+            double enginetorque = engine.getDouble("torque");
+
+            JSONObject transmission = autostyle.getJSONObject("transmission");
+            String transmissionType = transmission.getString("transmissionType");
+            double transmissionnumberofSpeeds = transmission.getDouble("numberOfSpeeds");
+
+            String drivenWheels = autostyle.getString("drivenWheels");
+
+            double numberofdoors = autostyle.getDouble("numOfDoors");
+
+            enginecylinders.add(enginecylinder);
+            enginehorsepowers.add(enginehorsepower);
+            enginetorques.add(enginetorque);
+            transmissiontypes.add(transmissionType);
+            transmissionshifts.add(transmissionnumberofSpeeds);
+
+            MyStringids Myautomodelldetails = new MyStringids();
+            Myautomodelldetails.MyStringidMarkenID = makeid;
+            Myautomodelldetails.MyStringidMarkenName = makename;
+            Myautomodelldetails.MyStringidMarkenNiceName = makenicename;
+            Myautomodelldetails.MyStringidJahrid = yearid;
+            Myautomodelldetails.MyStringidJahr = year;
+            Myautomodelldetails.MyStringidModellID = modelid;
+            Myautomodelldetails.MyStringidModellName = modelname;
+            Myautomodelldetails.MyStringidModellNiceName = modelnicename;
+            Myautomodelldetails.MyStringidDrivenWheels = drivenWheels;
+            Myautomodelldetails.MyStringidDoors = numberofdoors;
+            Myautomodelldetails.MyStringidCylinders = enginecylinders;
+            Myautomodelldetails.MyStringidHorsepowers = enginehorsepowers;
+            Myautomodelldetails.MyStringidTorques = enginetorques;
+            Myautomodelldetails.MyStringidShifts = transmissionshifts;
+            Myautomodelldetails.MyStringidTransmissiontypes = transmissiontypes;
+            Autodetails.add(Myautomodelldetails);
+        }
+        return Autodetails;
+    }
 }
+
 
 

@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainClass extends Application
 {
@@ -23,7 +24,11 @@ public class MainClass extends Application
         auto.MyStringidModellID = "Acura_ILX";
         auto.MyStringidJahr = 2014;
         auto.MyStringidJahrid = 200471908;
-        Autoauslesen.Autodetails(auto);
+        //Autoauslesen.Autodetails(auto);
+        String textdatei = Datenverwaltung.Textdateieinlesen("ILX");
+        ArrayList<MyStringids> autodetails = new ArrayList<MyStringids>();
+        autodetails = Autoauslesen.Autodetailsauslesen(textdatei);
+        System.out.println();
         launch(args);
     }
 
