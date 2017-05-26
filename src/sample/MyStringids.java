@@ -14,9 +14,9 @@ public class MyStringids
     double MyStringidJahrid = 0;
     String MyStringidDrivenWheels = null;
     double MyStringidDoors = 0;
-    ArrayList<Double> MyStringidCylinders = new ArrayList<Double>();
-    ArrayList<Double> MyStringidHorsepowers = new ArrayList<Double>();
-    ArrayList<Double> MyStringidTorques = new ArrayList<Double>();
-    ArrayList<String> MyStringidTransmissiontypes = new ArrayList<String>();
-    ArrayList<Double> MyStringidShifts = new ArrayList<Double>();
+    double MyStringidCylinder = 0;
+    double MyStringidHorsePower = 0;
+    double MyStringidTorque = 0;
+    double MyStringidShift = 0;
+    String MyStringidTransmissiontype = null;
 }

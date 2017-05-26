@@ -14,21 +14,12 @@ public class MainClass extends Application
 {
     public static void main(String[] args) throws Exception
     {
-        //Datenverwaltung.Textdateivorhanden("AlleAutos", "https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p");
-        MyStringids auto = new MyStringids();
-        auto.MyStringidModellName = "ILX";
-        auto.MyStringidMarkenName = "Acura";
-        auto.MyStringidMarkenNiceName = "acura";
-        auto.MyStringidMarkenID = 200002038;
-        auto.MyStringidModellNiceName = "ilx";
-        auto.MyStringidModellID = "Acura_ILX";
-        auto.MyStringidJahr = 2014;
-        auto.MyStringidJahrid = 200471908;
-        //Autoauslesen.Autodetails(auto);
+        Datenverwaltung.Textdateivorhanden("AlleAutos", "https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p");
+
+        System.out.println();//Autoauslesen.Autodetails(auto);
         String textdatei = Datenverwaltung.Textdateieinlesen("ILX");
         ArrayList<MyStringids> autodetails = new ArrayList<MyStringids>();
         autodetails = Autoauslesen.Autodetailsauslesen(textdatei);
-        System.out.println();
         launch(args);
     }
 

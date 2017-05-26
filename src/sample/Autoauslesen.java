@@ -99,11 +99,6 @@ public class Autoauslesen {
     public static ArrayList Autodetailsauslesen (String textdatei)
     {
         ArrayList<MyStringids> Autodetails = new ArrayList<MyStringids>();
-        ArrayList<Double> enginecylinders = new ArrayList<Double>();
-        ArrayList<Double> enginehorsepowers = new ArrayList<Double>();
-        ArrayList<Double> enginetorques = new ArrayList<Double>();
-        ArrayList<String> transmissiontypes = new ArrayList<String>();
-        ArrayList<Double> transmissionshifts = new ArrayList<Double>();
         JSONObject json = new JSONObject(textdatei);
         int anzahlautostyles = json.getInt("stylesCount");
         JSONArray stylesarray = json.getJSONArray("styles");
@@ -137,12 +132,6 @@ public class Autoauslesen {
 
             double numberofdoors = autostyle.getDouble("numOfDoors");
 
-            enginecylinders.add(enginecylinder);
-            enginehorsepowers.add(enginehorsepower);
-            enginetorques.add(enginetorque);
-            transmissiontypes.add(transmissionType);
-            transmissionshifts.add(transmissionnumberofSpeeds);
-
             MyStringids Myautomodelldetails = new MyStringids();
             Myautomodelldetails.MyStringidMarkenID = makeid;
             Myautomodelldetails.MyStringidMarkenName = makename;
@@ -152,18 +141,17 @@ public class Autoauslesen {
             Myautomodelldetails.MyStringidModellID = modelid;
             Myautomodelldetails.MyStringidModellName = modelname;
             Myautomodelldetails.MyStringidModellNiceName = modelnicename;
+
             Myautomodelldetails.MyStringidDrivenWheels = drivenWheels;
             Myautomodelldetails.MyStringidDoors = numberofdoors;
-            Myautomodelldetails.MyStringidCylinders = enginecylinders;
-            Myautomodelldetails.MyStringidHorsepowers = enginehorsepowers;
-            Myautomodelldetails.MyStringidTorques = enginetorques;
-            Myautomodelldetails.MyStringidShifts = transmissionshifts;
-            Myautomodelldetails.MyStringidTransmissiontypes = transmissiontypes;
+            Myautomodelldetails.MyStringidCylinder = enginecylinder;
+            Myautomodelldetails.MyStringidHorsePower = enginehorsepower;
+            Myautomodelldetails.MyStringidTorque = enginetorque;
+            Myautomodelldetails.MyStringidTransmissiontype = transmissionType;
+            Myautomodelldetails.MyStringidShift = transmissionnumberofSpeeds;
+
             Autodetails.add(Myautomodelldetails);
         }
         return Autodetails;
     }
 }
-
-
-

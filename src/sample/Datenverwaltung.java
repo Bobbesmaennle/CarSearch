@@ -44,7 +44,7 @@ public class Datenverwaltung
         return null;
     }
 
-    public static void Internetanfrage(String Internetadresse, String Dateiname) throws IOException //Internetanfrage
+    /*public static void Internetanfrage(String Internetadresse, String Dateiname) throws IOException //Internetanfrage
     {
         String Textdatei = new String();
         URL edmunds = new URL(Internetadresse);
@@ -64,11 +64,12 @@ public class Datenverwaltung
             {
                 Textdateischreiben(Dateiname, Textdatei);
             }
-    }
+    }*/
 
     public static void Textdateivorhanden(String Dateiname, String Internetadresse) throws IOException
     {
-        if (Anfragenzähler <= 25) {
+        if (Anfragenzähler <= 25)
+        {
             File fi = new File("");
             String verz = fi.getAbsolutePath();
             Object[] options = {"Ja, Daten lokal laden", "Nein, Daten online laden"};
@@ -80,14 +81,16 @@ public class Datenverwaltung
                 if (n == 0) {
                     textdatei = Textdateieinlesen(Dateiname);
                 } else {
-                    Internetanfrage(Internetadresse, Dateiname);
+                    Internetanfragen.Internetanfrage(Dateiname, Internetadresse);
                     textdatei = Textdateieinlesen(Dateiname);
                 }
             } else {
-                Internetanfrage(Internetadresse, Dateiname);
+                Internetanfragen.Internetanfrage(Dateiname, Internetadresse);
                 textdatei = Textdateieinlesen(Dateiname);
             }
-        } else {
+        }
+        else
+            {
             JOptionPane.showMessageDialog(null, "Das Maximum an Anfragen pro Tag ist erreicht. Die Daten können nicht online abgerufen werden.", "Anfragenmaximum", JOptionPane.INFORMATION_MESSAGE);
             File fi = new File("");
             String verz = fi.getAbsolutePath();
@@ -99,10 +102,14 @@ public class Datenverwaltung
                 int n = JOptionPane.showOptionDialog(null, "Die angeforderten Daten wurden lokal gefunden. Sie stammen vom " + cal.get(Calendar.DAY_OF_MONTH) + "." + (cal.get(Calendar.MONTH) + 1) + "." + cal.get(Calendar.YEAR) + ". Sollen sie geladen werden?", "Lokale Daten", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
                 if (n == 0) {
                     textdatei = Textdateieinlesen(Dateiname);
-                } else {
-                    System.exit(0);
                 }
-            } else {
+                else
+                    {
+                        System.exit(0);
+                    }
+            }
+            else
+                {
                 JOptionPane.showMessageDialog(null, "Die angeforderten Daten konnten nicht gefunden werden. Das Programm beendet sich.", "Beenden", JOptionPane.ERROR_MESSAGE);
             }
         }
