@@ -18,6 +18,7 @@ public class Controller
 
     public void fillDropdownBrand()
     {
+        /*
         brand.show();
         //Lädt alle Automarken in die ComboBox "brand"
         ArrayList<MyStringids> AlleAutomarken = new ArrayList<MyStringids>();
@@ -29,7 +30,7 @@ public class Controller
                 brand.getItems().addAll(
                         auto.MyStringidMarkenName
                     );
-            }
+            } */
 //        if(brand.getItems().size() > 0){
 //
 //                brand.getItems().clear();
@@ -67,7 +68,7 @@ public class Controller
     }
 
     public void fillDropdownModell()
-    {
+    { /*
         modell.show();
 
         if(brand.getValue().toString() != ""){
@@ -77,7 +78,7 @@ public class Controller
         ArrayList<MyStringids> AlleAutomodelle = new ArrayList<MyStringids>();
         String textdatei = Datenverwaltung.Textdateieinlesen("AlleAutos");
         Object aktuellemarke = brand.getValue();
-        AlleAutomodelle = Autoauslesen.Automarkenmodelleauslesen(textdatei,(MyStringids) aktuellemarke /*Automarke hinzufügen*/ );
+        AlleAutomodelle = Autoauslesen.Automarkenmodelleauslesen(textdatei,(MyStringids) aktuellemarke /*Automarke hinzufügen );
         for (MyStringids auto : AlleAutomodelle
                 ){
             brand.getItems().addAll(
@@ -88,23 +89,25 @@ public class Controller
 
 
 
-        }
+        } */
     }
 
     public void fillDropdownYear()
     {
+        /*
         year.show();
         //Lädt alle Automodelljahre in die ComboBox "year"
         ArrayList<MyStringids> AlleAutomodelljahre = new ArrayList<MyStringids>();
         String textdatei = Datenverwaltung.Textdateieinlesen("AlleAutos");
         Object aktuellesmodell = modell.getItems().get(0);
-        AlleAutomodelljahre = Autoauslesen.Automarkenmodelljahreauslesen(textdatei,(MyStringids) aktuellesmodell /*Automodell hinzufügen*/ );
+        AlleAutomodelljahre = Autoauslesen.Automarkenmodelljahreauslesen(textdatei,(MyStringids) aktuellesmodell /*Automodell hinzufügen );
         for (MyStringids auto : AlleAutomodelljahre
                 ){
             brand.getItems().addAll(
                    auto.MyStringidJahr
             );
         }
+        */
     }
 
     public void addCellToCarListViewer(){

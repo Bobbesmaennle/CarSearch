@@ -8,7 +8,10 @@ import java.net.URLConnection;
 
 public class Internetanfragen
 {
-    public static void Internetanfrage (String Dateiname, String Internetadresse) throws IOException
+    private static int Anfragenzähler = 0;
+    private static Boolean Anfrage = false;
+
+    private static String Internetanfrage (String Dateiname, String Internetadresse) throws IOException //Anfrage an Internet API
     {
         String JSONText = new String();
         URL edmunds = new URL(Internetadresse);
@@ -20,28 +23,36 @@ public class Internetanfragen
             JSONText += inputLine;
         }
         in.close();
-        if(JSONText.contains("string"))
+        Anfragenzähler++;
+        return JSONText;
+    }
+
+    public static boolean Anfragenzähler () //Zähler für geleistete Anfragen
+    {
+        if (Anfragenzähler <= 25)
         {
-            String Textdatei = JSONText.substring(7, JSONText.length() - 1);
-            Datenverwaltung.Textdateischreiben(Dateiname, Textdatei);
+            Anfrage = true;
         }
         else
         {
-            Datenverwaltung.Textdateischreiben(Dateiname, JSONText);
+            Anfrage = false;
         }
+        return Anfrage;
     }
 
-    public static void AlleAutos() throws IOException
+    public static String AlleAutos() throws IOException //Anfragevorbereitung für AlleAutos
     {
         String Internetadresse = "https://api.edmunds.com/api/vehicle/v2/makes?state=used&year=2014&view=basic&fmt=json&callback=string&api_key=c95hzyxj92wzfjegtsj2376p";
         String Dateiname = "AlleAutos";
-        Internetanfrage(Dateiname, Internetadresse);
+        String AlleAutos = Internetanfrage(Dateiname, Internetadresse);
+        return AlleAutos;
     }
 
-    public static void Autodetails (MyStringids auto) throws IOException
+    public static String Autodetails (MyStringids auto) throws IOException //Anfragevorbereitung für AutoDetails
     {
         String Dateiname = auto.MyStringidModellName;
         String Internetadresse = "https://api.edmunds.com/api/vehicle/v2/" + auto.MyStringidMarkenNiceName + "/" + auto.MyStringidModellNiceName + "/" + auto.MyStringidJahr + "/styles?state=used&view=full&fmt=json&api_key=c95hzyxj92wzfjegtsj2376p";
-        Internetanfrage(Dateiname, Internetadresse);
+        String AutoDetails = Internetanfrage(Dateiname, Internetadresse);
+        return AutoDetails;
     }
 }

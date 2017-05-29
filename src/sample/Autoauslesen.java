@@ -6,9 +6,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Autoauslesen {
-    public static ArrayList Automarkenauslesen(String textdatei) //Alle Automarken
+public class Autoauslesen
+{
+    public static ArrayList Automarkenauslesen() throws IOException //Alle Automarken
     {
+        String textdatei = AlleAutos.AlleAutos();
         ArrayList<MyStringids> Automarken = new ArrayList<MyStringids>();
         JSONObject json = new JSONObject(textdatei);
         int anzahlautomarken = json.getInt("makesCount");
@@ -27,8 +29,9 @@ public class Autoauslesen {
         return Automarken;
     }
 
-    public static ArrayList Automarkenmodelleauslesen(String textdatei, MyStringids Automarke) //Alle Modelle zu einer Automarke
+    public static ArrayList Automarkenmodelleauslesen(MyStringids Automarke) throws IOException //Alle Modelle zu einer Automarke
     {
+        String textdatei = AlleAutos.AlleAutos();
         ArrayList<MyStringids> Automarkenmodelle = new ArrayList<MyStringids>();
         JSONObject json = new JSONObject(textdatei);
         int anzahlautomarken = json.getInt("makesCount");
@@ -54,8 +57,9 @@ public class Autoauslesen {
         return Automarkenmodelle;
     }
 
-    public static ArrayList Automarkenmodelljahreauslesen(String textdatei, MyStringids Automodell) //Jahre zu einem Automodell
+    public static ArrayList Automarkenmodelljahreauslesen(MyStringids Automodell) throws IOException //Jahre zu einem Automodell
     {
+        String textdatei = AlleAutos.AlleAutos();
         ArrayList<MyStringids> Automarkenmodelljahre = new ArrayList<MyStringids>();
         JSONObject json = new JSONObject(textdatei);
         int anzahlautomarken = json.getInt("makesCount");
@@ -91,13 +95,11 @@ public class Autoauslesen {
         return Automarkenmodelljahre;
     }
 
-    public static void Autodetails (MyStringids auto) throws IOException
+    public static ArrayList Autodetailsauslesen (MyStringids Automodell) throws IOException //Details zu einem Automodell
     {
-        Datenverwaltung.Textdateivorhanden(auto.MyStringidModellName,  "https://api.edmunds.com/api/vehicle/v2/" + auto.MyStringidMarkenNiceName + "/" + auto.MyStringidModellNiceName + "/" + auto.MyStringidJahr + "/styles?state=used&view=full&fmt=json&api_key=c95hzyxj92wzfjegtsj2376p");
-    }
 
-    public static ArrayList Autodetailsauslesen (String textdatei)
-    {
+        MyStringids Myautomodelldetails = new MyStringids();
+        String textdatei = Autodetails.AutoDetails(Automodell);
         ArrayList<MyStringids> Autodetails = new ArrayList<MyStringids>();
         JSONObject json = new JSONObject(textdatei);
         int anzahlautostyles = json.getInt("stylesCount");
@@ -126,13 +128,14 @@ public class Autoauslesen {
 
             JSONObject transmission = autostyle.getJSONObject("transmission");
             String transmissionType = transmission.getString("transmissionType");
-            double transmissionnumberofSpeeds = transmission.getDouble("numberOfSpeeds");
+
+            String transmissionnumberofSpeeds = transmission.getString("numberOfSpeeds");
+
 
             String drivenWheels = autostyle.getString("drivenWheels");
 
             double numberofdoors = autostyle.getDouble("numOfDoors");
 
-            MyStringids Myautomodelldetails = new MyStringids();
             Myautomodelldetails.MyStringidMarkenID = makeid;
             Myautomodelldetails.MyStringidMarkenName = makename;
             Myautomodelldetails.MyStringidMarkenNiceName = makenicename;
