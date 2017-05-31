@@ -97,7 +97,6 @@ public class Autoauslesen
 
     public static ArrayList Autodetailsauslesen (MyStringids Automodell) throws IOException //Details zu einem Automodell
     {
-
         MyStringids Myautomodelldetails = new MyStringids();
         String textdatei = Autodetails.AutoDetails(Automodell);
         ArrayList<MyStringids> Autodetails = new ArrayList<MyStringids>();

@@ -26,7 +26,7 @@ public class Datenverwaltung
     }
 
     public static Boolean Lokalladen (String Dateiname) //Benutzer fragen ob die Datei lokal oder aus dem Internet geladen werden soll
-        {
+    {
         File fi = new File("");
         String verzeichnis = fi.getAbsolutePath();
         File file = new File(verzeichnis + "/" + Dateiname + ".txt");
