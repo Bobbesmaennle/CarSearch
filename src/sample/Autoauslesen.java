@@ -97,7 +97,6 @@ public class Autoauslesen
 
     public static ArrayList Autodetailsauslesen (MyStringids Automodell) throws IOException //Details zu einem Automodell
     {
-        MyStringids Myautomodelldetails = new MyStringids();
         String textdatei = Autodetails.AutoDetails(Automodell);
         ArrayList<MyStringids> Autodetails = new ArrayList<MyStringids>();
         JSONObject json = new JSONObject(textdatei);
@@ -105,6 +104,8 @@ public class Autoauslesen
         JSONArray stylesarray = json.getJSONArray("styles");
         for (int i = 0; i < anzahlautostyles; i++)
         {
+            MyStringids Myautomodelldetails = new MyStringids();
+
             JSONObject autostyle = stylesarray.getJSONObject(i);
             JSONObject years = autostyle.getJSONObject("year");
             double yearid = years.getDouble("id");
@@ -130,6 +131,8 @@ public class Autoauslesen
 
             String transmissionnumberofSpeeds = transmission.getString("numberOfSpeeds");
 
+            String stylename = autostyle.getString("name");
+            double styleid = autostyle.getDouble("id");
 
             String drivenWheels = autostyle.getString("drivenWheels");
 
@@ -151,8 +154,11 @@ public class Autoauslesen
             Myautomodelldetails.MyStringidTorque = enginetorque;
             Myautomodelldetails.MyStringidTransmissiontype = transmissionType;
             Myautomodelldetails.MyStringidShift = transmissionnumberofSpeeds;
+            Myautomodelldetails.MyStringidStyleid = styleid;
+            Myautomodelldetails.MyStringidStylename = stylename;
 
             Autodetails.add(Myautomodelldetails);
+            System.out.println();
         }
         return Autodetails;
     }

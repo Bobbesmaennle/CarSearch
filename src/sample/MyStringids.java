@@ -17,4 +17,6 @@ public class MyStringids
     double MyStringidTorque = 0;
     String MyStringidShift = null;
     String MyStringidTransmissiontype = null;
+    double MyStringidStyleid = 0;
+    String MyStringidStylename = null;
 }

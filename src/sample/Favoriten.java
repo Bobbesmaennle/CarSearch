@@ -26,35 +26,39 @@ public class Favoriten
     public static void Favoritentfernen (MyStringids Favorit) throws IOException
     {
         Boolean vorhanden = Datenverwaltung.Dateivorhanden("Favoriten");
-        String Dateiname = Favorit.MyStringidModellName + ".txt";
+        String Dateiname = Favorit.MyStringidModellName;
         if(vorhanden)
         {
             boolean Favoritvorhanden = Favoritvorhanden(Dateiname);
-            if(!Favoritvorhanden)
+            if(Favoritvorhanden)
             {
                 String Text = Textdatei.Textdateieintraglöschen("Favoriten", Dateiname);
-                Textdatei.Textdateischreiben("Favoriten",Text);
+                Textdatei.Textdateineuschreiben("Favoriten",Text);
             }
         }
     }
 
-    private static boolean Favoritvorhanden (String Favorit)
+    private static boolean Favoritvorhanden (String Favorit) throws FileNotFoundException
     {
         boolean Favoritvorhanden = false;
-        String Favoriten = Textdatei.Textdateieinlesen("Favoriten");
-        if(Favoriten.contains(Favorit))
+        ArrayList<String> Favoriten = Textdatei.Textdateizeilenauslesen("Favoriten");
+        for (String Zeile:Favoriten)
         {
-            Favoritvorhanden = true;
+            if(Zeile.equals(Favorit))
+            {
+                Favoritvorhanden = true;
+                return Favoritvorhanden;
+            }
         }
         return Favoritvorhanden;
     }
 
-    public static ArrayList<ArrayList> Favoritenauslesen () throws IOException //Nicht fertig
+    public static ArrayList<ArrayList<MyStringids>> Favoritenauslesen () throws IOException //Nicht fertig
     {
         boolean vorhanden = Datenverwaltung.Dateivorhanden("Favoriten");
         if(vorhanden)
         {
-            ArrayList<ArrayList> fav = new ArrayList<ArrayList>();
+            ArrayList<ArrayList<MyStringids>> AlleFavoriten = new ArrayList<ArrayList<MyStringids>>();
             ArrayList<MyStringids> Favoriten = new ArrayList<MyStringids>();
             ArrayList<String> Favoritenliste = Textdatei.Textdateizeilenauslesen("Favoriten");
             for (String Favorit:Favoritenliste)
@@ -62,9 +66,9 @@ public class Favoriten
                 MyStringids auto = new MyStringids();
                 auto.MyStringidModellName = Favorit;
                 Favoriten = Autoauslesen.Autodetailsauslesen(auto);
-                fav.add(Favoriten);
+                AlleFavoriten.add(Favoriten);
             }
-            return fav;
+            return AlleFavoriten;
         }
         return null;
     }

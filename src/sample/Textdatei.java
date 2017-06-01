@@ -63,16 +63,25 @@ public class Textdatei
         return Textdatei;
     }
 
-    public static void Textdateierweitern (String Dateiname, String Erweiterungstext)
+    public static void Textdateierweitern (String Dateiname, String Erweiterungstext) throws IOException
     {
         try
         {
             File fi = new File("");
-            String verz = fi.getAbsolutePath();
-            File file = new File(verz + "/" + Dateiname + ".txt");
-            PrintWriter writer = new PrintWriter(file);
-            writer.append("\n" + Erweiterungstext);
-            writer.close();
+            String verzeichnis = fi.getAbsolutePath();
+
+            BufferedReader br = null;
+            br = new BufferedReader(new FileReader(new File(verzeichnis + "/" + Dateiname + ".txt")));
+            String line;
+            String Altertext = new String();
+            while ((line = br.readLine()) != null) {
+                    Altertext += line + "\n";
+            }
+
+            FileWriter fw = new FileWriter(verzeichnis + "/" + Dateiname + ".txt"); //Datei mit eingegebenem Namen in Ordner des Programms
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(Altertext + Erweiterungstext);
+            bw.close();
         }
         catch (FileNotFoundException e)
         {
@@ -85,19 +94,19 @@ public class Textdatei
         File fi = new File("");
         String verzeichnis = fi.getAbsolutePath();
         String[] parts = null;
-        String part = "";
+        String Rückgabetext = "";
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader(new File(verzeichnis + "/" + Dateiname + ".txt")));
             String line;
             while ((line = br.readLine()) != null) {
-                parts = line.split("\r");
-                for (String _part : parts) {
-                    if(part != Löschen)
-                    part += _part;
+                if(!line.equals(Löschen))
+                {
+                    String Rückgabelinie = line;
+                    Rückgabetext += Rückgabelinie + "\n";
                 }
             }
-            return part;
+            return Rückgabetext;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -154,6 +163,23 @@ public class Textdatei
                 }
             }
           return null;
+    }
+
+    public static void Textdateineuschreiben (String Dateiname, String Text)
+    {
+        try
+        {
+            File fi = new File("");
+            String verz = fi.getAbsolutePath();
+            File file = new File(verz + "/" + Dateiname + ".txt");
+            PrintWriter writer = new PrintWriter(file);
+            writer.append(Text);
+            writer.close();
+        }
+        catch (FileNotFoundException e)
+        {
+            e.printStackTrace();
+        }
     }
 
 }
