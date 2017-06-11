@@ -1,16 +1,10 @@
 package sample;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
+import javafx.fxml.*;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
-
-import javax.swing.*;
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-
 public class Controller
 {
     @FXML public ComboBox brand;
@@ -18,58 +12,100 @@ public class Controller
     @FXML public ComboBox year;
     @FXML public ListView CarListViewer;
 
+    public static ArrayList<MyStringids> BrandsDropDown = new ArrayList<MyStringids>();
+    public static ArrayList<MyStringids> ModelsDropDown = new ArrayList<MyStringids>();
+    public static ArrayList<MyStringids> YearsDropDown = new ArrayList<MyStringids>();
+
+
+    @FXML
+    public void initialize() throws IOException
+    {
+        fillDropdownBrand();
+    }
+
 
     public void fillDropdownBrand() throws IOException //Lädt alle Automarken in die ComboBox "brand"
     {
-        ArrayList<MyStringids> AlleAutomarken = new ArrayList<MyStringids>();
-        AlleAutomarken = Autoauslesen.Automarkenauslesen();
-            for (MyStringids auto : AlleAutomarken)
+        CarListViewer.getItems().clear();
+        brand.setDisable(false);
+        year.setDisable(true);
+        modell.setDisable(true);
+        brand.getItems().clear();
+        BrandsDropDown = Autoauslesen.Automarkenauslesen();
+        for (MyStringids auto : BrandsDropDown)
             {
-                brand.getItems().add(auto);
+                brand.getItems().add(auto.MyStringidMarkenName);
+                CarListViewer.getItems().add(auto.MyStringidMarkenName);
             }
         brand.show();
     }
 
-
     public void fillDropdownModell() throws IOException //Lädt alle Automodelle in die ComboBox "modell"
     {
-        MyStringids marke = (MyStringids) brand.getItems().get(1);
-        MyStringids automarke = new MyStringids();
-        automarke.MyStringidMarkenName = marke.toString();
-        modell.show();
-        if(brand.getValue().toString() != "")
+        Object aktuelles = brand.getValue();
+        if(aktuelles != null)
         {
-        ArrayList<MyStringids> AlleAutomodelle = new ArrayList<MyStringids>();
-        AlleAutomodelle = Autoauslesen.Automarkenmodelleauslesen(automarke);
-        for (MyStringids auto : AlleAutomodelle)
-        {
-            brand.getItems().addAll(auto.MyStringidModellName);
+            CarListViewer.getItems().clear();
+            brand.setDisable(false);
+            year.setDisable(true);
+            modell.setDisable(false);
+            modell.getItems().clear();
+            int index = brand.getItems().indexOf(aktuelles);
+            MyStringids Automarke = BrandsDropDown.get(index);
+            ModelsDropDown = Autoauslesen.Automarkenmodelleauslesen(Automarke);
+            for (MyStringids model : ModelsDropDown)
+            {
+                modell.getItems().add(model.MyStringidModellName);
+                CarListViewer.getItems().add(model.MyStringidModellName);
+            }
+            modell.show();
         }
-        }
+        else
+            {
+                aktuelles = CarListViewer.getSelectionModel().getSelectedItem();
+                if(aktuelles != null)
+                {
+                    brand.setValue(aktuelles);
+                }
+            }
     }
 
-    public void fillDropdownYear() throws IOException {
-
-        year.show();
-        //Lädt alle Automodelljahre in die ComboBox "year"
-        ArrayList<MyStringids> AlleAutomodelljahre = new ArrayList<MyStringids>();
-        Object aktuellesmodell = modell.getItems().get(0);
-        AlleAutomodelljahre = Autoauslesen.Automarkenmodelljahreauslesen((MyStringids) aktuellesmodell);
-        for (MyStringids auto : AlleAutomodelljahre
-                ){
-            brand.getItems().addAll(
-                   auto.MyStringidJahr
-            );
+    public void fillDropdownYear() throws IOException
+    {
+        Object aktuelles = modell.getValue();
+        if(aktuelles != null)
+        {
+            CarListViewer.getItems().clear();
+            brand.setDisable(false);
+            year.setDisable(false);
+            modell.setDisable(false);
+            year.getItems().clear();
+            int index = modell.getItems().indexOf(aktuelles);
+            MyStringids Automodell = ModelsDropDown.get(index);
+            YearsDropDown = Autoauslesen.Automarkenmodelljahreauslesen(Automodell);
+            for (MyStringids jahr:YearsDropDown)
+            {
+                year.getItems().add(jahr.MyStringidJahr);
+                CarListViewer.getItems().add(jahr.MyStringidJahr);
+            }
+            year.show();
         }
-
+        else
+            {
+                aktuelles = CarListViewer.getSelectionModel().getSelectedItem();
+                if(aktuelles != null)
+                {
+                    modell.setValue(aktuelles);
+                }
+            }
     }
 
-    public void addCellToCarListViewer() throws IOException {
-
-        ObservableList<String> items =FXCollections.observableArrayList (
-                "Auto1", "Auto2", "Auto3", "Auto4");
-
-        CarListViewer.setItems(items);
+    public void addCellToCarListViewer() throws IOException
+    {
+//        ObservableList<String> items =FXCollections.observableArrayList (
+//                "Auto1", "Auto2", "Auto3", "Auto4");
+//
+//        CarListViewer.setItems(items);
 
     }
 
