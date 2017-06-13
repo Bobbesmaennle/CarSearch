@@ -16,39 +16,76 @@ public class Controller
     public static ArrayList<MyStringids> ModelsDropDown = new ArrayList<MyStringids>();
     public static ArrayList<MyStringids> YearsDropDown = new ArrayList<MyStringids>();
 
+    public static String selectedBrand = "";
+    public static String selectedModel = "";
+    public static String selectedYear = "";
 
+    public static boolean brandSelected = false;
+    public static boolean modelSelected = false;
+    public static boolean searchingModel = false;
+    public static boolean searchingYear = false;
+
+    public static Object chosenModelObj;
     @FXML
     public void initialize() throws IOException
     {
-        fillDropdownBrand();
+        //fillDropdownBrand();
     }
-
 
     public void fillDropdownBrand() throws IOException //Lädt alle Automarken in die ComboBox "brand"
     {
-        CarListViewer.getItems().clear();
-        brand.setDisable(false);
-        year.setDisable(true);
-        modell.setDisable(true);
-        brand.getItems().clear();
-        BrandsDropDown = Autoauslesen.Automarkenauslesen();
-        for (MyStringids auto : BrandsDropDown)
-            {
-                brand.getItems().add(auto.MyStringidMarkenName);
-                CarListViewer.getItems().add(auto.MyStringidMarkenName);
+
+        //System.out.println("Hier der Inhalt: " + brand.getSelectionModel().getSelectedItem().toString());
+        if (brandSelected == false) {
+            CarListViewer.getItems().clear();
+            brand.setDisable(false);
+            year.setDisable(true);
+            modell.setDisable(true);
+            brand.getItems().clear();
+            BrandsDropDown = Autoauslesen.Automarkenauslesen();
+
+
+            if (brand.getValue() == null) {
+
+                for (MyStringids auto : BrandsDropDown) {
+                    brand.getItems().add(auto.MyStringidMarkenName);
+                    CarListViewer.getItems().add(auto.MyStringidMarkenName);
+                }
+
+            } else {
+
+                for (MyStringids auto : BrandsDropDown) {
+                    String autoLowerCase = auto.MyStringidMarkenName.toLowerCase();
+                    if (autoLowerCase.indexOf(brand.getValue().toString()) != -1) {
+                        brand.getItems().add(auto.MyStringidMarkenName);
+                        CarListViewer.getItems().add(auto.MyStringidMarkenName);
+                    }
+                }
             }
-        brand.show();
+        }
+        else {
+
+            brand.setValue(selectedBrand);
+        }
+        //brand.show();
     }
 
     public void fillDropdownModell() throws IOException //Lädt alle Automodelle in die ComboBox "modell"
     {
-        Object aktuelles = brand.getValue();
+        searchingModel = true;
+
+        //brand.setValue(CarListViewer.getSelectionModel().getSelectedItem());
+        //Object aktuelles = brand.getValue();
+        Object aktuelles = CarListViewer.getSelectionModel().getSelectedItem();
+
+        //Object aktuelles = brand.getSelectionModel().getSelectedItem();
+
         if(aktuelles != null)
         {
             CarListViewer.getItems().clear();
             brand.setDisable(false);
-            year.setDisable(true);
             modell.setDisable(false);
+            year.setDisable(true);
             modell.getItems().clear();
             int index = brand.getItems().indexOf(aktuelles);
             MyStringids Automarke = BrandsDropDown.get(index);
@@ -58,7 +95,7 @@ public class Controller
                 modell.getItems().add(model.MyStringidModellName);
                 CarListViewer.getItems().add(model.MyStringidModellName);
             }
-            modell.show();
+           //modell.show();
         }
         else
             {
@@ -68,11 +105,18 @@ public class Controller
                     brand.setValue(aktuelles);
                 }
             }
+
+
     }
 
     public void fillDropdownYear() throws IOException
     {
-        Object aktuelles = modell.getValue();
+        searchingYear = true;
+
+        //Object aktuelles = modell.getValue();
+        Object aktuelles = CarListViewer.getSelectionModel().getSelectedItem();
+        //Object aktuelles = modell.getSelectionModel().getSelectedItem();
+
         if(aktuelles != null)
         {
             CarListViewer.getItems().clear();
@@ -88,7 +132,7 @@ public class Controller
                 year.getItems().add(jahr.MyStringidJahr);
                 CarListViewer.getItems().add(jahr.MyStringidJahr);
             }
-            year.show();
+            //year.show();
         }
         else
             {
@@ -98,6 +142,58 @@ public class Controller
                     modell.setValue(aktuelles);
                 }
             }
+    }
+
+
+    public void listViewSelection() throws IOException
+    {
+        //System.out.println(CarListViewer.getSelectionModel().getSelectedItem().toString());
+
+        if(searchingModel == false && searchingYear == false)
+        {
+//Marke schreiben.
+            brandSelected = true;
+            selectedBrand = CarListViewer.getSelectionModel().getSelectedItem().toString();
+            brand.setValue(CarListViewer.getSelectionModel().getSelectedItem());
+
+//            selectedBrand = brand.getSelectionModel().getSelectedItem().toString();
+//            brand.setValue(brand.getSelectionModel().getSelectedItem());
+
+                    fillDropdownModell();
+
+        }
+        else if (searchingModel == true && searchingYear == false){
+//Modell schreiben.
+
+            modelSelected = true;
+            selectedModel = CarListViewer.getSelectionModel().getSelectedItem().toString();
+            chosenModelObj = CarListViewer.getSelectionModel().getSelectedItem();
+            modell.setValue(CarListViewer.getSelectionModel().getSelectedItem());
+
+            selectedModel = modell.getSelectionModel().getSelectedItem().toString();
+            modell.setValue(modell.getSelectionModel().getSelectedItem());
+
+            fillDropdownYear();
+
+        }
+        else if (searchingYear == true) {
+//Jahr schreiben.
+
+            selectedYear = CarListViewer.getSelectionModel().getSelectedItem().toString();
+            year.setValue(CarListViewer.getSelectionModel().getSelectedItem());
+
+            // Suchergebnisse anzeigen!!!
+
+
+
+
+
+
+
+          //  Autodetails.AutoDetails();
+        }
+
+
     }
 
     public void addCellToCarListViewer() throws IOException
