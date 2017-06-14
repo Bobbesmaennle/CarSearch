@@ -50,7 +50,7 @@
                 </VBox.margin>
             </HBox>
             <HBox alignment="CENTER" prefHeight="55.0" prefWidth="600.0" stylesheets="@../stylesheetDemo.css">
-                <ComboBox fx:id="brand" editable="true" onAction="#fillDropdownBrand" onContextMenuRequested="#listViewSelection" onKeyReleased="#fillDropdownBrand" onMouseReleased="#listViewSelection" prefWidth="150.0" promptText="Marke" onInputMethodTextChanged="#FillDropDownBrand"/>
+                <ComboBox fx:id="brand" editable="true" onAction="#fillDropdownBrand" onContextMenuRequested="#listViewSelection" onKeyReleased="#fillDropdownBrand" onMouseReleased="#listViewSelection" prefWidth="150.0" promptText="Marke" onInputMethodTextChanged="#listViewSelection"/>
                 <ComboBox fx:id="modell" editable="true" onContextMenuRequested="#fillDropdownYear" onKeyReleased="#fillDropdownModell" onMouseDragReleased="#fillDropdownModell" onMouseReleased="#fillDropdownYear" prefWidth="150.0" promptText="Modell">
                     <HBox.margin>
                         <Insets left="10.0" />

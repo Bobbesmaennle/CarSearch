@@ -29,36 +29,40 @@ public class Controller
     @FXML
     public void initialize() throws IOException
     {
-        fillallDropDownBrand();
+        FillDropDownBrand();
     }
 
     public void FillDropDownBrand() throws IOException
     {
-        if(brand.getValue()==null)
+        if(selectedBrand != null)
         {
-            fillallDropDownBrand();
-        }
-        else
+            if(brand.getValue()!=selectedBrand)
+            {
+                RefillDropDownBrand();
+            }
+            else
             {
                 fillDropdownBrand();
             }
+        }
     }
 
-
-    public void fillallDropDownBrand() throws IOException
+    public void RefillDropDownBrand() throws IOException
     {
-        brand.setValue(selectedBrand);
         CarListViewer.getItems().clear();
+        brand.getItems().clear();
+        modell.getItems().clear();
+        year.getItems().clear();
         brand.setDisable(false);
         year.setDisable(true);
         modell.setDisable(true);
-        brand.getItems().clear();
         BrandsDropDown = Autoauslesen.Automarkenauslesen();
         for (MyStringids auto: BrandsDropDown)
         {
             brand.getItems().add(auto.MyStringidMarkenName);
             CarListViewer.getItems().add(auto.MyStringidMarkenName);
         }
+        brand.setValue(selectedBrand);
     }
 
     public void fillDropdownBrand() throws IOException //Lädt alle Automarken in die ComboBox "brand"
@@ -86,17 +90,19 @@ public class Controller
         }
         else
             {
+                brand.setValue(selectedBrand);
+
                 CarListViewer.getItems().clear();
-                brand.setDisable(false);
-                year.setDisable(true);
-                modell.setDisable(true);
-                brand.getItems().clear();
-                if(!brand.getItems().contains(selectedBrand))
-                {
-                    brand.getItems().add(selectedBrand);
-                    CarListViewer.getItems().add(selectedBrand);
-                    brand.setValue(selectedBrand);
-                }
+//                brand.setDisable(false);
+//                year.setDisable(true);
+//                modell.setDisable(true);
+//                brand.getItems().clear();
+//                if(!brand.getItems().contains(selectedBrand))
+//                {
+//                    brand.getItems().add(selectedBrand);
+//                    CarListViewer.getItems().add(selectedBrand);
+//
+//                }
             }
     }
 
@@ -193,6 +199,7 @@ public class Controller
             brandSelected = true;
             selectedBrand = CarListViewer.getSelectionModel().getSelectedItem().toString();
             brand.setValue(CarListViewer.getSelectionModel().getSelectedItem());
+            brand.setValue(selectedBrand);
             fillDropdownModell();
         }
         else if (searchingModel == true && searchingYear == false)
