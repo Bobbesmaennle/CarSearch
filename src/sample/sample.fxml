@@ -50,7 +50,7 @@
                 </VBox.margin>
             </HBox>
             <HBox alignment="CENTER" prefHeight="55.0" prefWidth="600.0" stylesheets="@../stylesheetDemo.css">
-                <ComboBox fx:id="brand" editable="true" onAction="#fillDropdownBrand" onContextMenuRequested="#listViewSelection" onKeyReleased="#fillDropdownBrand" onMouseReleased="#listViewSelection" prefWidth="150.0" promptText="Marke" onInputMethodTextChanged="#listViewSelection"/>
+                <ComboBox fx:id="brand" editable="true" onAction="#fillDropdownBrand" onContextMenuRequested="#listViewSelection" onInputMethodTextChanged="#listViewSelection" onKeyReleased="#fillDropdownBrand" onMouseReleased="#listViewSelection" prefWidth="150.0" promptText="Marke" />
                 <ComboBox fx:id="modell" editable="true" onContextMenuRequested="#fillDropdownYear" onKeyReleased="#fillDropdownModell" onMouseDragReleased="#fillDropdownModell" onMouseReleased="#fillDropdownYear" prefWidth="150.0" promptText="Modell">
                     <HBox.margin>
                         <Insets left="10.0" />
@@ -106,6 +106,7 @@
                         <Font size="30.0" />
                     </font></Label>
                 <Label alignment="CENTER" contentDisplay="CENTER" text="Please select car to start searching." textAlignment="CENTER" visible="true" />
+            <HBox prefHeight="100.0" prefWidth="200.0" />
             </VBox>
 
             <ListView prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Gray;" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">

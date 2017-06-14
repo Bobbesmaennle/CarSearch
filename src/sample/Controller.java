@@ -196,9 +196,13 @@ public class Controller
     {
         if(searchingModel == false && searchingYear == false)
         {
+            System.out.println(            brand.getSelectionModel().getSelectedItem().toString());
+
             brandSelected = true;
             selectedBrand = CarListViewer.getSelectionModel().getSelectedItem().toString();
             brand.setValue(CarListViewer.getSelectionModel().getSelectedItem());
+
+
             brand.setValue(selectedBrand);
             fillDropdownModell();
         }
