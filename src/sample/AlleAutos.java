@@ -9,35 +9,38 @@ public class AlleAutos
 
     public static String AlleAutos() throws IOException //Methode um auf AlleAutos zuzugreifen
     {
-        boolean Anfragen = Internetanfragen.Anfragenzähler();
-        if(Anfragen)
-        {
-            boolean dateivorhanden = Datenverwaltung.Dateivorhanden("AlleAutos");
-            if(dateivorhanden)
+        boolean immerlokalladen = Datenverwaltung.alleautoslokalladen;
+//        if(!immerlokalladen)
+//        {
+            boolean Anfragen = Internetanfragen.Anfragenzähler();
+            if(Anfragen)
             {
-                boolean lokalladen = Datenverwaltung.Lokalladen("AlleAutos");
-                if(lokalladen)
+                boolean dateivorhanden = Datenverwaltung.Dateivorhanden("AlleAutos");
+                if(dateivorhanden)
                 {
-                    AlleAutos = Textdatei.Textdateieinlesen("AlleAutos");
-                    return AlleAutos;
-                }
-                else
+                    boolean lokalladen = Datenverwaltung.Lokalladen("AlleAutos");
+                    if(lokalladen)
+                    {
+                        AlleAutos = Textdatei.Textdateieinlesen("AlleAutos");
+                        return AlleAutos;
+                    }
+                    else
                     {
                         String AlleAutosInternet = Internetanfragen.AlleAutos();
                         Textdatei.Textdateischreiben("AlleAutos",AlleAutosInternet);
                         AlleAutos = Textdatei.Textdateieinlesen("AlleAutos");
                         return AlleAutos;
                     }
-            }
-            else
+                }
+                else
                 {
                     String AlleAutosInternet = Internetanfragen.AlleAutos();
                     Textdatei.Textdateischreiben("AlleAutos",AlleAutosInternet);
                     AlleAutos = Textdatei.Textdateieinlesen("AlleAutos");
                     return AlleAutos;
                 }
-        }
-        else
+            }
+            else
             {
                 boolean dateivorhanden = Datenverwaltung.Dateivorhanden("AlleAutos");
                 if(dateivorhanden)
@@ -53,5 +56,11 @@ public class AlleAutos
                     return null;
                 }
             }
+//        }
+//        else
+//            {
+//                AlleAutos = Textdatei.Textdateieinlesen("AlleAutos");
+//                return AlleAutos;
+//            }
     }
 }

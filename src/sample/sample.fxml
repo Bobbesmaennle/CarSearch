@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.3" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.3" />
@@ -50,8 +50,8 @@
                 </VBox.margin>
             </HBox>
             <HBox alignment="CENTER" prefHeight="55.0" prefWidth="600.0" stylesheets="@../stylesheetDemo.css">
-                <ComboBox fx:id="brand" editable="true" onAction="#fillDropdownBrand" onContextMenuRequested="#listViewSelection" onInputMethodTextChanged="#listViewSelection" onKeyReleased="#fillDropdownBrand" onMouseReleased="#listViewSelection" prefWidth="150.0" promptText="Marke" />
-                <ComboBox fx:id="modell" editable="true" onContextMenuRequested="#fillDropdownYear" onKeyReleased="#fillDropdownModell" onMouseDragReleased="#fillDropdownModell" onMouseReleased="#fillDropdownYear" prefWidth="150.0" promptText="Modell">
+                <ComboBox fx:id="brand" editable="true" onAction="#Brandselectedbrandsdropdown" onContextMenuRequested="#Brandselectedbrandsdropdown" onInputMethodTextChanged="#Brandselectedbrandsdropdown" prefWidth="150.0" promptText="Marke" />
+                <ComboBox fx:id="modell" editable="true" onAction="#Modellselectedmodelldropdown" onContextMenuRequested="#Modellselectedmodelldropdown" onInputMethodTextChanged="#Modellselectedmodelldropdown" prefWidth="150.0" promptText="Modell">
                     <HBox.margin>
                         <Insets left="10.0" />
                     </HBox.margin></ComboBox>
@@ -81,7 +81,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
         <children>
-            <ListView fx:id="CarListViewer" onMouseClicked="#listViewSelection" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Gray;" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+            <ListView fx:id="CarListViewer" onContextMenuRequested="#SelectedListview" onInputMethodTextChanged="#SelectedListview" onMouseClicked="#SelectedListview" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Gray;" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
 
 
                 <!--<Button alignment="CENTER" prefWidth="185.0" text="Marke/Modell_1">-->

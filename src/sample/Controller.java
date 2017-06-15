@@ -5,238 +5,236 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListView;
 import java.io.IOException;
 import java.util.ArrayList;
-public class Controller
-{
-    @FXML public ComboBox brand;
-    @FXML public ComboBox modell;
-    @FXML public ComboBox year;
-    @FXML public ListView CarListViewer;
+public class Controller {
+    @FXML
+    public ComboBox brand;
+    @FXML
+    public ComboBox modell;
+    @FXML
+    public ComboBox year;
+    @FXML
+    public ListView CarListViewer;
 
     public static ArrayList<MyStringids> BrandsDropDown = new ArrayList<MyStringids>();
     public static ArrayList<MyStringids> ModelsDropDown = new ArrayList<MyStringids>();
     public static ArrayList<MyStringids> YearsDropDown = new ArrayList<MyStringids>();
+    public static ArrayList<MyStringids> Varianten = new ArrayList<MyStringids>();
 
-    public static String selectedBrand = "";
-    public static String selectedModel = "";
-    public static String selectedYear = "";
+    public static String selectedBrand = new String();
+    public static String selectedModel = new String();
+    public static String selectedYear = new String();
 
     public static boolean brandSelected = false;
     public static boolean modelSelected = false;
+    public static boolean yearSelected = false;
     public static boolean searchingModel = false;
     public static boolean searchingYear = false;
 
-    public static Object chosenModelObj;
+
     @FXML
     public void initialize() throws IOException
     {
-        FillDropDownBrand();
+        AlleMarkeninBrand();
     }
 
-    public void FillDropDownBrand() throws IOException
+    public void Brandselectedbrandsdropdown() throws IOException
     {
-        if(selectedBrand != null)
-        {
-            if(brand.getValue()!=selectedBrand)
-            {
-                RefillDropDownBrand();
-            }
-            else
-            {
-                fillDropdownBrand();
-            }
+        selectedBrand = brand.getValue().toString();
+        Brandchanged();
+    }
+
+    public void Modellselectedmodelldropdown() throws IOException
+    {
+        selectedModel = modell.getValue().toString();
+        Modellchanged();
+    }
+
+    public void Yearselecteyearsdropdown() throws IOException
+    {
+        selectedYear = year.getValue().toString();
+        Yearchanged();
+    }
+
+    public void SelectedListview() throws IOException
+    {
+        if (!brandSelected && !modelSelected) {
+            selectedBrand = CarListViewer.getSelectionModel().getSelectedItem().toString();
+            Brandchanged();
+        } else if (!modelSelected && brandSelected) {
+            selectedModel = CarListViewer.getSelectionModel().getSelectedItem().toString();
+            Modellchanged();
+        } else {
+            selectedYear = CarListViewer.getSelectionModel().getSelectedItem().toString();
+            Yearchanged();
         }
     }
 
-    public void RefillDropDownBrand() throws IOException
+    public void Modellchanged() throws IOException
     {
-        CarListViewer.getItems().clear();
-        brand.getItems().clear();
-        modell.getItems().clear();
-        year.getItems().clear();
-        brand.setDisable(false);
-        year.setDisable(true);
-        modell.setDisable(true);
-        BrandsDropDown = Autoauslesen.Automarkenauslesen();
-        for (MyStringids auto: BrandsDropDown)
-        {
-            brand.getItems().add(auto.MyStringidMarkenName);
-            CarListViewer.getItems().add(auto.MyStringidMarkenName);
-        }
-        brand.setValue(selectedBrand);
-    }
-
-    public void fillDropdownBrand() throws IOException //Lädt alle Automarken in die ComboBox "brand"
-    {
-        if (brandSelected == false)
-        {
+        if (!selectedModel.equals(null)) {
+            modelSelected = true;
+            yearSelected = false;
+            int index = CarListViewer.getItems().indexOf(selectedModel);
+            CarListViewer.getSelectionModel().select(index);
+            CarListViewer.getFocusModel().focus(index);
+            CarListViewer.scrollTo(index);
+            CarListViewer.getSelectionModel().select(selectedModel);
             CarListViewer.getItems().clear();
-            brand.setDisable(false);
+            modell.setValue(selectedModel);
+            //modell.getItems().clear();
+            year.getItems().clear();
+            year.setDisable(false);
+            AlleJahreinYear();
+            System.out.println();
+        } else {
+            modelSelected = false;
+            yearSelected = false;
+            AlleModelleinModell();
+        }
+    }
+
+    public void Yearchanged() throws IOException
+    {
+
+        if (!selectedYear.equals(null)) {
+            yearSelected = true;
+            int index = CarListViewer.getItems().indexOf(selectedYear);
+            CarListViewer.getSelectionModel().select(index);
+            CarListViewer.getFocusModel().focus(index);
+            CarListViewer.scrollTo(index);
+            CarListViewer.getSelectionModel().select(selectedYear);
+            CarListViewer.getItems().clear();
+            year.setValue(selectedYear);
+            AlleVarianten();
+        } else {
+            yearSelected = false;
+            AlleJahreinYear();
+        }
+    }
+
+    public void Brandchanged() throws IOException
+    {
+        if (!selectedBrand.equals(null)) {
+            brandSelected = true;
+            modelSelected = false;
+            yearSelected = false;
+            int index = CarListViewer.getItems().indexOf(selectedBrand);
+            CarListViewer.getSelectionModel().select(index);
+            CarListViewer.getFocusModel().focus(index);
+            CarListViewer.scrollTo(index);
+            CarListViewer.getSelectionModel().select(selectedBrand);
+            CarListViewer.getItems().clear();
+            brand.setValue(selectedBrand);
+            modell.getItems().clear();
+            year.getItems().clear();
+            modell.setDisable(false);
             year.setDisable(true);
-            modell.setDisable(true);
-            brand.getItems().clear();
-            BrandsDropDown = Autoauslesen.Automarkenauslesen();
-            if (brand.getValue() != null)
-            {
-                for (MyStringids auto : BrandsDropDown)
-                {
-                    String autoLowerCase = auto.MyStringidMarkenName.toLowerCase();
-                    if (autoLowerCase.indexOf(brand.getValue().toString()) != -1)
-                    {
-                        brand.getItems().add(auto.MyStringidMarkenName);
-                        CarListViewer.getItems().add(auto.MyStringidMarkenName);
-                    }
-                }
-            }
+            AlleModelleinModell();
+        } else {
+            brandSelected = false;
+            modelSelected = false;
+            yearSelected = false;
+            AlleMarkeninBrand();
         }
-        else
-            {
-                brand.setValue(selectedBrand);
-
-                CarListViewer.getItems().clear();
-//                brand.setDisable(false);
-//                year.setDisable(true);
-//                modell.setDisable(true);
-//                brand.getItems().clear();
-//                if(!brand.getItems().contains(selectedBrand))
-//                {
-//                    brand.getItems().add(selectedBrand);
-//                    CarListViewer.getItems().add(selectedBrand);
-//
-//                }
-            }
     }
 
-    public void fillDropdownModell() throws IOException //Lädt alle Automodelle in die ComboBox "modell"
+    public void AlleModelleinModell() throws IOException
     {
-        searchingModel = true;
-
-        //brand.setValue(CarListViewer.getSelectionModel().getSelectedItem());
-        //Object aktuelles = brand.getValue();
-        Object aktuelles = CarListViewer.getSelectionModel().getSelectedItem();
-
-        //Object aktuelles = brand.getSelectionModel().getSelectedItem();
-
-        if(selectedBrand != null)
-        {
-            CarListViewer.getItems().clear();
+        if (selectedBrand != null) {
             brand.setDisable(false);
             modell.setDisable(false);
             year.setDisable(true);
             modell.getItems().clear();
-
-            //int index = brand.getItems().indexOf(aktuelles);
-            //MyStringids Automarke = BrandsDropDown.get(index);
             MyStringids Automarke = new MyStringids();
-            for (MyStringids automarke:BrandsDropDown)
-            {
-                if(automarke.MyStringidMarkenName == selectedBrand)
-                {
+            for (MyStringids automarke : BrandsDropDown) {
+                if (automarke.MyStringidMarkenName == selectedBrand) {
                     Automarke.MyStringidMarkenName = automarke.MyStringidMarkenName;
                     Automarke.MyStringidMarkenID = automarke.MyStringidMarkenID;
                     Automarke.MyStringidMarkenNiceName = automarke.MyStringidMarkenNiceName;
                 }
             }
             ModelsDropDown = Autoauslesen.Automarkenmodelleauslesen(Automarke);
-            for (MyStringids model : ModelsDropDown)
-            {
-                if(model.MyStringidMarkenName.equals(Automarke.MyStringidMarkenName))
-                {
+            for (MyStringids model : ModelsDropDown) {
+                if (model.MyStringidMarkenName.equals(Automarke.MyStringidMarkenName)) {
                     modell.getItems().add(model.MyStringidModellName);
                     CarListViewer.getItems().add(model.MyStringidModellName);
                 }
             }
         }
-        else
-            {
-                aktuelles = CarListViewer.getSelectionModel().getSelectedItem();
-                if(aktuelles != null)
-                {
-                    brand.setValue(aktuelles);
-                }
-            }
     }
 
-    public void fillDropdownYear() throws IOException
+    public void AlleMarkeninBrand() throws IOException
     {
-        searchingYear = true;
+        CarListViewer.getItems().clear();
+        brand.setDisable(false);
+        year.setDisable(true);
+        modell.setDisable(true);
+        brand.getItems().clear();
+        modell.getItems().clear();
+        year.getItems().clear();
+        BrandsDropDown = Autoauslesen.Automarkenauslesen();
+        for (MyStringids auto : BrandsDropDown) {
+            brand.getItems().add(auto.MyStringidMarkenName);
+            CarListViewer.getItems().add(auto.MyStringidMarkenName);
+        }
+    }
 
-        //Object aktuelles = modell.getValue();
-        Object aktuelles = CarListViewer.getSelectionModel().getSelectedItem();
-        //Object aktuelles = modell.getSelectionModel().getSelectedItem();
-
-        if(aktuelles != null)
-        {
-            CarListViewer.getItems().clear();
+    public void AlleJahreinYear() throws IOException
+    {
+        if (selectedYear != null) {
             brand.setDisable(false);
-            year.setDisable(false);
             modell.setDisable(false);
+            year.setDisable(false);
             year.getItems().clear();
-            int index = modell.getItems().indexOf(aktuelles);
-            MyStringids Automodell = ModelsDropDown.get(index);
-            YearsDropDown = Autoauslesen.Automarkenmodelljahreauslesen(Automodell);
-            for (MyStringids jahr:YearsDropDown)
-            {
-                year.getItems().add(jahr.MyStringidJahr);
-                CarListViewer.getItems().add(jahr.MyStringidJahr);
-            }
-            //year.show();
-        }
-        else
-            {
-                aktuelles = CarListViewer.getSelectionModel().getSelectedItem();
-                if(aktuelles != null)
-                {
-                    modell.setValue(aktuelles);
+            MyStringids Automodell = new MyStringids();
+            for (MyStringids automodell : ModelsDropDown) {
+                if (automodell.MyStringidModellName == selectedModel) {
+                    Automodell.MyStringidMarkenName = automodell.MyStringidMarkenName;
+                    Automodell.MyStringidMarkenID = automodell.MyStringidMarkenID;
+                    Automodell.MyStringidMarkenNiceName = automodell.MyStringidMarkenNiceName;
+                    Automodell.MyStringidModellName = automodell.MyStringidModellName;
+                    Automodell.MyStringidModellID = automodell.MyStringidModellID;
+                    Automodell.MyStringidModellNiceName = automodell.MyStringidModellNiceName;
                 }
             }
+            YearsDropDown = Autoauslesen.Automarkenmodelljahreauslesen(Automodell);
+            System.out.println(year.getItems());
+            for (MyStringids Jahr : YearsDropDown) {
+                if (Jahr.MyStringidModellName.equals(Automodell.MyStringidModellName)) {
+                    year.getItems().add(Jahr.MyStringidJahr);
+                    CarListViewer.getItems().add(Jahr.MyStringidJahr);
+                }
+            }
+            System.out.println(year.getItems());
+        }
     }
 
-
-    public void listViewSelection() throws IOException
+    public void AlleVarianten() throws IOException
     {
-        if(searchingModel == false && searchingYear == false)
-        {
-            System.out.println(            brand.getSelectionModel().getSelectedItem().toString());
-
-            brandSelected = true;
-            selectedBrand = CarListViewer.getSelectionModel().getSelectedItem().toString();
-            brand.setValue(CarListViewer.getSelectionModel().getSelectedItem());
-
-
-            brand.setValue(selectedBrand);
-            fillDropdownModell();
+        MyStringids Auto = new MyStringids();
+        for (MyStringids auto : YearsDropDown) {
+            Auto.MyStringidMarkenName = auto.MyStringidMarkenName;
+            Auto.MyStringidMarkenID = auto.MyStringidMarkenID;
+            Auto.MyStringidMarkenNiceName = auto.MyStringidMarkenNiceName;
+            Auto.MyStringidModellName = auto.MyStringidModellName;
+            Auto.MyStringidModellNiceName = auto.MyStringidModellNiceName;
+            Auto.MyStringidModellID = auto.MyStringidModellID;
+            Auto.MyStringidJahr = auto.MyStringidJahr;
+            Auto.MyStringidJahrid = auto.MyStringidJahrid;
         }
-        else if (searchingModel == true && searchingYear == false)
-        {
-            modelSelected = true;
-            selectedModel = CarListViewer.getSelectionModel().getSelectedItem().toString();
-            chosenModelObj = CarListViewer.getSelectionModel().getSelectedItem();
-            modell.setValue(CarListViewer.getSelectionModel().getSelectedItem());
-
-            selectedModel = modell.getSelectionModel().getSelectedItem().toString();
-            modell.setValue(modell.getSelectionModel().getSelectedItem());
-
-            fillDropdownYear();
-
+        Varianten = Autoauslesen.Autodetailsauslesen(Auto);
+        for (MyStringids Variante : Varianten) {
+            ListView Anzeige = new ListView();
+            Anzeige.getItems().add("Variante: " + Variante.MyStringidStylename);
+            Anzeige.getItems().add("Türen: " + Variante.MyStringidDoors);
+            Anzeige.getItems().add("PS: " + Variante.MyStringidHorsePower);
+            Anzeige.getItems().add("Drehmoment: " + Variante.MyStringidTorque);
+            Anzeige.getItems().add("Zylinderanzahl: " + Variante.MyStringidCylinder);
+            Anzeige.getItems().add("Antrieb: " + Variante.MyStringidDrivenWheels);
+            Anzeige.getItems().add("Gangschaltung: " + Variante.MyStringidShift);
+            Anzeige.getItems().add("Getriebe: " + Variante.MyStringidTransmissiontype);
+            System.out.println(Anzeige);
         }
-        else if (searchingYear == true)
-        {
-//Jahr schreiben.
-
-            selectedYear = CarListViewer.getSelectionModel().getSelectedItem().toString();
-            year.setValue(CarListViewer.getSelectionModel().getSelectedItem());
-
-            // Suchergebnisse anzeigen!!!
-
-
-
-
-
-
-
-          //  Autodetails.AutoDetails();
-        }
-
-
     }
 }
+
