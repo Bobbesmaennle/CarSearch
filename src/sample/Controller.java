@@ -175,6 +175,8 @@ public class Controller {
             modell.setDisable(false);
             year.setDisable(true);
             modell.getItems().clear();
+            CarDetails.getItems().clear();
+            CarDetails.setDisable(true);
             MyStringids Automarke = new MyStringids();
             for (MyStringids automarke : BrandsDropDown) {
                 if (automarke.MyStringidMarkenName == selectedBrand) {
@@ -202,6 +204,8 @@ public class Controller {
         brand.getItems().clear();
         modell.getItems().clear();
         year.getItems().clear();
+        CarDetails.getItems().clear();
+        CarDetails.setDisable(true);
         BrandsDropDown = Autoauslesen.Automarkenauslesen();
         for (MyStringids auto : BrandsDropDown) {
             brand.getItems().add(auto.MyStringidMarkenName);
@@ -216,6 +220,8 @@ public class Controller {
             modell.setDisable(false);
             year.setDisable(false);
             year.getItems().clear();
+            CarDetails.getItems().clear();
+            CarDetails.setDisable(true);
             MyStringids Automodell = new MyStringids();
             for (MyStringids automodell : ModelsDropDown) {
                 if (automodell.MyStringidModellName == selectedModel) {
@@ -239,6 +245,8 @@ public class Controller {
 
     public void AlleVarianten() throws IOException
     {
+        CarDetails.getItems().clear();
+        CarDetails.setDisable(true);
         if (selectedVariant != null) {
             brand.setDisable(false);
             modell.setDisable(false);
@@ -270,6 +278,8 @@ public class Controller {
 
     public void Variante()
     {
+        CarDetails.getItems().clear();
+        CarDetails.setDisable(false);
         MyStringids Automodell = new MyStringids();
         for (MyStringids Variante : Varianten) {
             if (Variante.MyStringidStylename.equals(selectedVariant)) {
