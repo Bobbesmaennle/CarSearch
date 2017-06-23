@@ -45,10 +45,15 @@ public class Datenverwaltung {
                     abgefragteDateien[index] = Dateiname;
                     lokalladen = true;
                     index++;
-                } else {
+                } else if(n == 1) {
                     lokalladen = false;
                     return lokalladen;
                 }
+                else
+                    {
+                        abgefragteDateien[index] = Dateiname;
+                        lokalladen = true;
+                    }
                 }
             } else {
                 int n = JOptionPane.showOptionDialog(null, "Die angeforderten Daten " + Dateiname + " wurden lokal gefunden. Sie stammen vom " + cal.get(Calendar.DAY_OF_MONTH) + "." + (cal.get(Calendar.MONTH) + 1) + "." + cal.get(Calendar.YEAR) + ". Sollen sie geladen werden?", "Lokale Daten", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
@@ -57,10 +62,15 @@ public class Datenverwaltung {
                     lokalladen = true;
                     index++;
                     return lokalladen;
-                } else {
+                } else if(n == 1) {
                     lokalladen = false;
                     return  lokalladen;
                 }
+                else
+                    {
+                        abgefragteDateien[index] = Dateiname;
+                        lokalladen = true;
+                    }
             }
             }
             return lokalladen;

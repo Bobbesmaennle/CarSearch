@@ -55,7 +55,7 @@
                     <HBox.margin>
                         <Insets left="10.0" />
                     </HBox.margin></ComboBox>
-                <ComboBox fx:id="year" editable="true" prefWidth="150.0" promptText="Baujahr">
+                <ComboBox fx:id="year" editable="true" onAction="#Yearselecteyearsdropdown" onContextMenuRequested="#Yearselecteyearsdropdown" onInputMethodTextChanged="#Yearselecteyearsdropdown" prefWidth="150.0" promptText="Baujahr">
                     <HBox.margin>
                         <Insets left="10.0" />
                     </HBox.margin></ComboBox>
@@ -106,7 +106,10 @@
                         <Font size="30.0" />
                     </font></Label>
                 <Label alignment="CENTER" contentDisplay="CENTER" text="Please select car to start searching." textAlignment="CENTER" visible="true" />
-            <HBox prefHeight="100.0" prefWidth="200.0" />
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ListView fx:id="CarDetails" prefHeight="216.0" prefWidth="435.0" />
+               </children></HBox>
             </VBox>
 
             <ListView prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Gray;" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">

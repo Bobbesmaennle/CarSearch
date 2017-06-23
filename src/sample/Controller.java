@@ -14,6 +14,8 @@ public class Controller {
     public ComboBox year;
     @FXML
     public ListView CarListViewer;
+    @FXML
+    public ListView CarDetails;
 
     public static ArrayList<MyStringids> BrandsDropDown = new ArrayList<MyStringids>();
     public static ArrayList<MyStringids> ModelsDropDown = new ArrayList<MyStringids>();
@@ -23,13 +25,12 @@ public class Controller {
     public static String selectedBrand = new String();
     public static String selectedModel = new String();
     public static String selectedYear = new String();
+    public static String selectedVariant = new String();
 
     public static boolean brandSelected = false;
     public static boolean modelSelected = false;
     public static boolean yearSelected = false;
-    public static boolean searchingModel = false;
-    public static boolean searchingYear = false;
-
+    public static boolean variantSelected = false;
 
     @FXML
     public void initialize() throws IOException
@@ -57,15 +58,41 @@ public class Controller {
 
     public void SelectedListview() throws IOException
     {
-        if (!brandSelected && !modelSelected) {
+        if (!brandSelected && !modelSelected && !yearSelected && !variantSelected) {
             selectedBrand = CarListViewer.getSelectionModel().getSelectedItem().toString();
             Brandchanged();
-        } else if (!modelSelected && brandSelected) {
+        } else if (!modelSelected && brandSelected && !yearSelected && !variantSelected) {
             selectedModel = CarListViewer.getSelectionModel().getSelectedItem().toString();
             Modellchanged();
-        } else {
+        } else if(modelSelected && brandSelected && !yearSelected && !variantSelected){
             selectedYear = CarListViewer.getSelectionModel().getSelectedItem().toString();
             Yearchanged();
+        }
+        else if(modelSelected && brandSelected && yearSelected && variantSelected)
+            {
+                selectedVariant = CarListViewer.getSelectionModel().getSelectedItem().toString();
+                Variantchanged();
+            }
+            else
+                {
+                    selectedVariant = CarListViewer.getSelectionModel().getSelectedItem().toString();
+                    Variante();
+                }
+    }
+
+    public void Variantchanged () throws IOException
+    {
+        if (!selectedVariant.equals(null)) {
+            variantSelected = true;
+            int index = CarListViewer.getItems().indexOf(selectedVariant);
+            CarListViewer.getSelectionModel().select(index);
+            CarListViewer.getFocusModel().focus(index);
+            CarListViewer.scrollTo(index);
+            CarListViewer.getSelectionModel().select(selectedVariant);
+            CarListViewer.getItems().clear();
+            AlleVarianten();
+        } else {
+            Variante();
         }
     }
 
@@ -74,6 +101,7 @@ public class Controller {
         if (!selectedModel.equals(null)) {
             modelSelected = true;
             yearSelected = false;
+            variantSelected = false;
             int index = CarListViewer.getItems().indexOf(selectedModel);
             CarListViewer.getSelectionModel().select(index);
             CarListViewer.getFocusModel().focus(index);
@@ -98,6 +126,7 @@ public class Controller {
 
         if (!selectedYear.equals(null)) {
             yearSelected = true;
+            variantSelected = false;
             int index = CarListViewer.getItems().indexOf(selectedYear);
             CarListViewer.getSelectionModel().select(index);
             CarListViewer.getFocusModel().focus(index);
@@ -118,6 +147,7 @@ public class Controller {
             brandSelected = true;
             modelSelected = false;
             yearSelected = false;
+            variantSelected = false;
             int index = CarListViewer.getItems().indexOf(selectedBrand);
             CarListViewer.getSelectionModel().select(index);
             CarListViewer.getFocusModel().focus(index);
@@ -198,43 +228,79 @@ public class Controller {
                 }
             }
             YearsDropDown = Autoauslesen.Automarkenmodelljahreauslesen(Automodell);
-            System.out.println(year.getItems());
             for (MyStringids Jahr : YearsDropDown) {
                 if (Jahr.MyStringidModellName.equals(Automodell.MyStringidModellName)) {
                     year.getItems().add(Jahr.MyStringidJahr);
                     CarListViewer.getItems().add(Jahr.MyStringidJahr);
                 }
             }
-            System.out.println(year.getItems());
         }
     }
 
     public void AlleVarianten() throws IOException
     {
-        MyStringids Auto = new MyStringids();
-        for (MyStringids auto : YearsDropDown) {
-            Auto.MyStringidMarkenName = auto.MyStringidMarkenName;
-            Auto.MyStringidMarkenID = auto.MyStringidMarkenID;
-            Auto.MyStringidMarkenNiceName = auto.MyStringidMarkenNiceName;
-            Auto.MyStringidModellName = auto.MyStringidModellName;
-            Auto.MyStringidModellNiceName = auto.MyStringidModellNiceName;
-            Auto.MyStringidModellID = auto.MyStringidModellID;
-            Auto.MyStringidJahr = auto.MyStringidJahr;
-            Auto.MyStringidJahrid = auto.MyStringidJahrid;
+        if (selectedVariant != null) {
+            brand.setDisable(false);
+            modell.setDisable(false);
+            year.setDisable(false);
+            CarListViewer.getItems().clear();
+            MyStringids Automodell = new MyStringids();
+            for (MyStringids automodell : YearsDropDown) {
+                String Year = automodell.MyStringidJahr + "";
+                if (Year.equals(selectedYear)) {
+
+                    Automodell.MyStringidMarkenName = automodell.MyStringidMarkenName;
+                    Automodell.MyStringidMarkenID = automodell.MyStringidMarkenID;
+                    Automodell.MyStringidMarkenNiceName = automodell.MyStringidMarkenNiceName;
+                    Automodell.MyStringidModellName = automodell.MyStringidModellName;
+                    Automodell.MyStringidModellID = automodell.MyStringidModellID;
+                    Automodell.MyStringidModellNiceName = automodell.MyStringidModellNiceName;
+                    Automodell.MyStringidJahr = automodell.MyStringidJahr;
+                    Automodell.MyStringidJahrid = automodell.MyStringidJahrid;
+                }
+            }
+            Varianten = Autoauslesen.Autodetailsauslesen(Automodell);
+            for (MyStringids Variante : Varianten) {
+                if (Variante.MyStringidJahr == Automodell.MyStringidJahr) {
+                    CarListViewer.getItems().add(Variante.MyStringidStylename);
+                }
+            }
         }
-        Varianten = Autoauslesen.Autodetailsauslesen(Auto);
+    }
+
+    public void Variante()
+    {
+        MyStringids Automodell = new MyStringids();
         for (MyStringids Variante : Varianten) {
-            ListView Anzeige = new ListView();
-            Anzeige.getItems().add("Variante: " + Variante.MyStringidStylename);
-            Anzeige.getItems().add("Türen: " + Variante.MyStringidDoors);
-            Anzeige.getItems().add("PS: " + Variante.MyStringidHorsePower);
-            Anzeige.getItems().add("Drehmoment: " + Variante.MyStringidTorque);
-            Anzeige.getItems().add("Zylinderanzahl: " + Variante.MyStringidCylinder);
-            Anzeige.getItems().add("Antrieb: " + Variante.MyStringidDrivenWheels);
-            Anzeige.getItems().add("Gangschaltung: " + Variante.MyStringidShift);
-            Anzeige.getItems().add("Getriebe: " + Variante.MyStringidTransmissiontype);
-            System.out.println(Anzeige);
+            if (Variante.MyStringidStylename.equals(selectedVariant)) {
+                Automodell.MyStringidMarkenName = Variante.MyStringidMarkenName;
+                Automodell.MyStringidMarkenID = Variante.MyStringidMarkenID;
+                Automodell.MyStringidMarkenNiceName = Variante.MyStringidMarkenNiceName;
+                Automodell.MyStringidModellName = Variante.MyStringidModellName;
+                Automodell.MyStringidModellID = Variante.MyStringidModellID;
+                Automodell.MyStringidModellNiceName = Variante.MyStringidModellNiceName;
+                Automodell.MyStringidJahr = Variante.MyStringidJahr;
+                Automodell.MyStringidJahrid = Variante.MyStringidJahrid;
+                Automodell.MyStringidDrivenWheels = Variante.MyStringidDrivenWheels;
+                Automodell.MyStringidDoors = Variante.MyStringidDoors;
+                Automodell.MyStringidCylinder = Variante.MyStringidCylinder;
+                Automodell.MyStringidHorsePower = Variante.MyStringidHorsePower;
+                Automodell.MyStringidTorque = Variante.MyStringidTorque;
+                Automodell.MyStringidShift = Variante.MyStringidShift;
+                Automodell.MyStringidTransmissiontype = Variante.MyStringidTransmissiontype;
+                Automodell.MyStringidStyleid = Variante.MyStringidStyleid;
+                Automodell.MyStringidStylename = Variante.MyStringidStylename;
+            }
         }
+
+        CarDetails.getItems().add("Variante: " + Automodell.MyStringidStylename);
+        CarDetails.getItems().add("Türen: " + Automodell.MyStringidDoors);
+        CarDetails.getItems().add("PS: " + Automodell.MyStringidHorsePower);
+        CarDetails.getItems().add("Drehmoment: " + Automodell.MyStringidTorque);
+        CarDetails.getItems().add("Zylinderanzahl: " + Automodell.MyStringidCylinder);
+        CarDetails.getItems().add("Antrieb: " + Automodell.MyStringidDrivenWheels);
+        CarDetails.getItems().add("Gangschaltung: " + Automodell.MyStringidShift);
+        CarDetails.getItems().add("Getriebe: " + Automodell.MyStringidTransmissiontype);
     }
 }
 
