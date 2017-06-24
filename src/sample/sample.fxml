@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.3" />
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.3" />
@@ -139,7 +139,7 @@
                 </VBox>
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: Lightgray;" visible="true">
                     <ListView fx:id="CarDetails" editable="true" visible="false" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" HBox.hgrow="ALWAYS" />
-                    <Button fx:id="AddToFavourites" alignment="BOTTOM_RIGHT" mnemonicParsing="false" text="Zu den Favoriten hinzufügen" textAlignment="CENTER" visible="false">
+                    <Button fx:id="AddToFavourites" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onMouseClicked="#FavoritHinzufuegen" text="Zu den Favoriten hinzufügen" textAlignment="CENTER" visible="false">
                         <VBox.margin>
                             <Insets bottom="10.0" top="10.0" />
                         </VBox.margin></Button>

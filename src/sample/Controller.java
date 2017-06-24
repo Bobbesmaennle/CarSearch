@@ -328,9 +328,12 @@ public class Controller {
         CarDetails.getItems().add("Getriebe: " + Automodell.MyStringidTransmissiontype);
     }
 
-    public void FavoritHinzufuegen()
+    public void FavoritHinzufuegen() throws IOException
     {
-
+        MyStringids modellspeichern = new MyStringids();
+        String modellname = modell.getValue().toString();
+        modellspeichern.MyStringidModellName = modellname;
+        Favoriten.Favorithinzufügen(modellspeichern);
     }
 
     public void NeueSuche()
