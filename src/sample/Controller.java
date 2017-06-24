@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.fxml.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -23,6 +24,8 @@ public class Controller {
     public Label WelcomeLabel;
     @FXML
     public Label InstructionLabel;
+    @FXML
+    public Button AddToFavourites;
 
     public static ArrayList<MyStringids> BrandsDropDown = new ArrayList<MyStringids>();
     public static ArrayList<MyStringids> ModelsDropDown = new ArrayList<MyStringids>();
@@ -64,6 +67,7 @@ public class Controller {
         WelcomeLabel.setVisible(false);
         InstructionLabel.setVisible(false);
         CarDetails.setVisible(true);
+        AddToFavourites.setVisible(true);
         Yearchanged();
     }
 

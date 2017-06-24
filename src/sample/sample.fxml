@@ -15,6 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.layout.StackPane?>
 <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.3" />
@@ -83,35 +84,65 @@
         <children>
             <ListView fx:id="CarListViewer" onContextMenuRequested="#SelectedListview" onInputMethodTextChanged="#SelectedListview" onMouseClicked="#SelectedListview" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Gray;" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="0" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
 
-
-                <!--<Button alignment="CENTER" prefWidth="185.0" text="Marke/Modell_1">-->
-                    <!--<HBox.margin>-->
-                        <!--<Insets left="10.0" />-->
-                    <!--</HBox.margin>-->
-                <!--</Button>-->
-                <!--<Button text="Marke/Modell_2">-->
-                    <!--<HBox.margin>-->
-                        <!--<Insets left="10.0" />-->
-                    <!--</HBox.margin>-->
-                <!--</Button>-->
-
             </ListView>
 
 
-            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: Lightgray;" visible="true" GridPane.columnIndex="1" GridPane.rowIndex="0">
+            <!--<VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: Lightgray;" visible="true" GridPane.columnIndex="1" GridPane.rowIndex="0">-->
 
 
-                <Label fx:id="WelcomeLabel" alignment="CENTER" contentDisplay="CENTER" text="Willkommen zu CarSearch!" textAlignment="CENTER" visible="true" VBox.vgrow="ALWAYS">
-                    <font>
-                        <Font size="30.0" />
-                    </font></Label>
-                <Label fx:id="InstructionLabel" alignment="CENTER" contentDisplay="CENTER" text="Bitte wählen Sie ein Auto um die Suche zu starten." textAlignment="CENTER" visible="true" />
-            <HBox prefHeight="100.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">
-               <children>
-                  <ListView fx:id="CarDetails" editable="true" visible="false" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" HBox.hgrow="ALWAYS" />
-               </children></HBox>
-            <Button fx:id="AddToFavourites" visible="false" alignment="BOTTOM_RIGHT" mnemonicParsing="false" text="Zu den Favoriten hinzufügen" textAlignment="CENTER" />
-            </VBox>
+                <!--<Label fx:id="WelcomeLabel" alignment="CENTER" contentDisplay="CENTER" text="Willkommen zu CarSearch!" textAlignment="CENTER" visible="true" VBox.vgrow="ALWAYS">-->
+                    <!--<font>-->
+                        <!--<Font size="30.0" />-->
+                    <!--</font></Label>-->
+                <!--<Label fx:id="InstructionLabel" alignment="CENTER" contentDisplay="CENTER" text="Bitte wählen Sie ein Auto um die Suche zu starten." textAlignment="CENTER" visible="true" />-->
+
+                <!--<ListView fx:id="CarDetails" editable="true" visible="false" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" HBox.hgrow="ALWAYS" />-->
+
+
+                <!--&lt;!&ndash;<HBox prefHeight="100.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<children>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<ListView fx:id="CarDetails" editable="true" visible="false" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" HBox.hgrow="ALWAYS" />&ndash;&gt;-->
+                    <!--&lt;!&ndash;</children>&ndash;&gt;-->
+                <!--&lt;!&ndash;</HBox>&ndash;&gt;-->
+            <!--<Button fx:id="AddToFavourites" alignment="BOTTOM_RIGHT" mnemonicParsing="false" text="Zu den Favoriten hinzufügen" textAlignment="CENTER" visible="false">-->
+               <!--<VBox.margin>-->
+                  <!--<Insets bottom="10.0" top="10.0" />-->
+               <!--</VBox.margin></Button>-->
+            <!--</VBox>-->
+
+
+            <StackPane alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: Lightgray;" visible="true" GridPane.columnIndex="1" GridPane.rowIndex="0">
+
+
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: Lightgray;" visible="true">
+                    <Label fx:id="WelcomeLabel" alignment="CENTER" contentDisplay="CENTER" text="Willkommen zu CarSearch!" textAlignment="CENTER" visible="true" VBox.vgrow="ALWAYS">
+                        <font>
+                            <Font size="30.0" />
+                        </font></Label>
+                    <Label fx:id="InstructionLabel" alignment="CENTER" contentDisplay="CENTER" text="Bitte wählen Sie ein Auto um die Suche zu starten." textAlignment="CENTER" visible="true" />
+                </VBox>
+
+
+                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: Lightgray;" visible="true">
+
+                    <ListView fx:id="CarDetails" editable="true" visible="false" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" HBox.hgrow="ALWAYS" />
+
+
+                    <!--<HBox prefHeight="100.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">-->
+                    <!--<children>-->
+                    <!--<ListView fx:id="CarDetails" editable="true" visible="false" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" HBox.hgrow="ALWAYS" />-->
+                    <!--</children>-->
+                    <!--</HBox>-->
+                    <Button fx:id="AddToFavourites" alignment="BOTTOM_RIGHT" mnemonicParsing="false" text="Zu den Favoriten hinzufügen" textAlignment="CENTER" visible="false">
+                        <VBox.margin>
+                            <Insets bottom="10.0" top="10.0" />
+                        </VBox.margin></Button>
+
+                </VBox>
+
+
+
+            </StackPane>
 
 
 
