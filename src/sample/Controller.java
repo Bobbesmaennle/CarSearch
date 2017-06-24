@@ -7,7 +7,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.LinkedBlockingQueue;
 
 public class Controller {
     @FXML

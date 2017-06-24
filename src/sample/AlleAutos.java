@@ -10,8 +10,6 @@ public class AlleAutos
     public static String AlleAutos() throws IOException //Methode um auf AlleAutos zuzugreifen
     {
         boolean immerlokalladen = Datenverwaltung.alleautoslokalladen;
-//        if(!immerlokalladen)
-//        {
             boolean Anfragen = Internetanfragen.Anfragenzähler();
             if(Anfragen)
             {
@@ -56,11 +54,5 @@ public class AlleAutos
                     return null;
                 }
             }
-//        }
-//        else
-//            {
-//                AlleAutos = Textdatei.Textdateieinlesen("AlleAutos");
-//                return AlleAutos;
-//            }
     }
 }

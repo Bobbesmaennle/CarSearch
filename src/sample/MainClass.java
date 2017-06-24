@@ -24,12 +24,10 @@ public class MainClass extends Application
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("CarSearcher");
         primaryStage.setScene(new Scene(root, 300, 275));
-        //primaryStage.setMaximized(true);
         primaryStage.setHeight(700);
         primaryStage.setWidth(850);
         primaryStage.setResizable(false);
         primaryStage.resizableProperty().setValue(Boolean.FALSE);
-        //primaryStage.setFullScreen(true);
         primaryStage.show();
     }
 }
