@@ -327,5 +327,19 @@ public class Controller {
         CarDetails.getItems().add("Gangschaltung: " + Automodell.MyStringidShift);
         CarDetails.getItems().add("Getriebe: " + Automodell.MyStringidTransmissiontype);
     }
+
+    public void FavoritHinzufuegen()
+    {
+
+    }
+
+    public void NeueSuche()
+    {
+        CarListViewer.getItems().clear();
+        CarDetails.getItems().clear();
+        brand.getItems().clear();
+        modell.getItems().clear();
+        year.getItems().clear();
+    }
 }
 
