@@ -43,6 +43,8 @@ public class Controller {
     public static boolean yearSelected = false;
     public static boolean variantSelected = false;
 
+    public static  MyStringids AutomodellVariante;
+
     @FXML
     public void initialize() throws IOException
     {
@@ -296,6 +298,7 @@ public class Controller {
         CarDetails.getItems().clear();
         CarDetails.setDisable(false);
         MyStringids Automodell = new MyStringids();
+        AutomodellVariante = new MyStringids();
         for (MyStringids Variante : Varianten) {
             if (Variante.MyStringidStylename.equals(selectedVariant)) {
                 Automodell.MyStringidMarkenName = Variante.MyStringidMarkenName;
@@ -328,18 +331,23 @@ public class Controller {
         CarDetails.getItems().add("Getriebe: " + Automodell.MyStringidTransmissiontype);
     }
 
-    public void FavoritHinzufuegen()
+    public void FavoritHinzufuegen() throws IOException
     {
-
+        Favoriten.Favorithinzufügen(AutomodellVariante);
     }
 
-    public void NeueSuche()
+    public void NeueSuche() throws IOException
     {
         CarListViewer.getItems().clear();
         CarDetails.getItems().clear();
         brand.getItems().clear();
         modell.getItems().clear();
         year.getItems().clear();
+
+
+
+        AlleMarkeninBrand();
+
     }
 }
 

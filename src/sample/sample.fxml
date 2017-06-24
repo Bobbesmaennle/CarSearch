@@ -48,9 +48,9 @@
                     <Insets />
                 </VBox.margin>
             </HBox>
-            <VBox alignment="CENTER" prefHeight="55.0" prefWidth="600.0" stylesheets="@../stylesheetDemo.css">
+            <VBox alignment="CENTER" prefHeight="55.0" prefWidth="600.0" stylesheets="@../stylesheetCarSearch.css">
 
-            <HBox alignment="CENTER" prefHeight="55.0" prefWidth="600.0" stylesheets="@../stylesheetDemo.css">
+            <HBox alignment="CENTER" prefHeight="55.0" prefWidth="600.0" stylesheets="@../stylesheetCarSearch.css">
 
                 <ComboBox fx:id="brand" editable="true" onAction="#Brandselectedbrandsdropdown" onContextMenuRequested="#Brandselectedbrandsdropdown" onInputMethodTextChanged="#Brandselectedbrandsdropdown" prefWidth="150.0" promptText="Marke" />
                 <ComboBox fx:id="modell" editable="true" onAction="#Modellselectedmodelldropdown" onContextMenuRequested="#Modellselectedmodelldropdown" onInputMethodTextChanged="#Modellselectedmodelldropdown" prefWidth="150.0" promptText="Modell">
@@ -65,7 +65,7 @@
 
             </HBox>
 
-                <HBox alignment="CENTER" stylesheets="@../stylesheetDemo.css">
+                <HBox alignment="CENTER" stylesheets="@../stylesheetCarSearch.css">
                 <Button fx:id="Favourites" onAction="#FavoritHinzufuegen" text="Meine Favoriten" visible="true">
                     <HBox.margin>
                         <Insets bottom="10.0" top="10.0" />
@@ -73,14 +73,6 @@
                <VBox.margin>
                   <Insets bottom="10.0" top="10.0" />
                </VBox.margin></Button>
-
-                <Button fx:id="NewSearch" onAction="#NeueSuche" text="Neue Suche" visible="true">
-                    <HBox.margin>
-                        <Insets bottom="10.0" left="20.0" top="10.0" />
-                    </HBox.margin>
-                    <VBox.margin>
-                        <Insets bottom="10.0" top="10.0" />
-                    </VBox.margin></Button>
             </HBox>
         </VBox>
 
