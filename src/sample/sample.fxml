@@ -12,10 +12,10 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.layout.StackPane?>
 <GridPane alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/8.0.112-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="33.3" />
@@ -29,11 +29,9 @@
     </rowConstraints>
 
     <HBox alignment="CENTER" style="-fx-background-color: lightblue;" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0">
-        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Lightblue;" HBox.hgrow="ALWAYS" />
-
+        <Pane prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: Lightblue;" HBox.hgrow="ALWAYS" />
         <VBox alignment="CENTER">
             <HBox alignment="CENTER" prefHeight="75.0" prefWidth="200.0">
-
                 <children>
                     <Label alignment="CENTER" contentDisplay="CENTER" text="CarSearch">
                         <font>
@@ -50,7 +48,9 @@
                     <Insets />
                 </VBox.margin>
             </HBox>
+            <VBox alignment="CENTER" prefHeight="55.0" prefWidth="600.0" stylesheets="@../stylesheetDemo.css">
             <HBox alignment="CENTER" prefHeight="55.0" prefWidth="600.0" stylesheets="@../stylesheetDemo.css">
+
                 <ComboBox fx:id="brand" editable="true" onAction="#Brandselectedbrandsdropdown" onContextMenuRequested="#Brandselectedbrandsdropdown" onInputMethodTextChanged="#Brandselectedbrandsdropdown" prefWidth="150.0" promptText="Marke" />
                 <ComboBox fx:id="modell" editable="true" onAction="#Modellselectedmodelldropdown" onContextMenuRequested="#Modellselectedmodelldropdown" onInputMethodTextChanged="#Modellselectedmodelldropdown" prefWidth="150.0" promptText="Modell">
                     <HBox.margin>
@@ -60,18 +60,20 @@
                     <HBox.margin>
                         <Insets left="10.0" />
                     </HBox.margin></ComboBox>
-                <Button fx:id="Favourites" text="Favoriten" visible="true">
+                <Button fx:id="Favourites" onAction="#FavoritHinzufuegen" text="Favoriten" visible="true">
                     <HBox.margin>
                         <Insets left="10.0" />
                     </HBox.margin></Button>
 
             </HBox>
+        </VBox>
+
             <HBox.margin>
                 <Insets left="10.0" right="10.0" />
             </HBox.margin>
         </VBox>
 
-        <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: Lightblue;" HBox.hgrow="ALWAYS" />
+        <Pane prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: Lightblue;" HBox.hgrow="ALWAYS" />
     </HBox>
     <GridPane GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="1" GridPane.rowSpan="2">
         <columnConstraints>
@@ -112,8 +114,6 @@
 
 
             <StackPane alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: Lightgray;" visible="true" GridPane.columnIndex="1" GridPane.rowIndex="0">
-
-
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: Lightgray;" visible="true">
                     <Label fx:id="WelcomeLabel" alignment="CENTER" contentDisplay="CENTER" text="Willkommen zu CarSearch!" textAlignment="CENTER" visible="true" VBox.vgrow="ALWAYS">
                         <font>
@@ -121,33 +121,14 @@
                         </font></Label>
                     <Label fx:id="InstructionLabel" alignment="CENTER" contentDisplay="CENTER" text="Bitte wählen Sie ein Auto um die Suche zu starten." textAlignment="CENTER" visible="true" />
                 </VBox>
-
-
                 <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: Lightgray;" visible="true">
-
                     <ListView fx:id="CarDetails" editable="true" visible="false" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" HBox.hgrow="ALWAYS" />
-
-
-                    <!--<HBox prefHeight="100.0" prefWidth="200.0" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS">-->
-                    <!--<children>-->
-                    <!--<ListView fx:id="CarDetails" editable="true" visible="false" GridPane.hgrow="ALWAYS" GridPane.vgrow="ALWAYS" HBox.hgrow="ALWAYS" />-->
-                    <!--</children>-->
-                    <!--</HBox>-->
                     <Button fx:id="AddToFavourites" alignment="BOTTOM_RIGHT" mnemonicParsing="false" text="Zu den Favoriten hinzufügen" textAlignment="CENTER" visible="false">
                         <VBox.margin>
                             <Insets bottom="10.0" top="10.0" />
                         </VBox.margin></Button>
-
                 </VBox>
-
-
-
             </StackPane>
-
-
-
-
         </children>
-
     </GridPane>
 </GridPane>
