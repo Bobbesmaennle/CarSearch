@@ -31,6 +31,7 @@ public class Datenverwaltung {
         String verzeichnis = fi.getAbsolutePath();
         File file = new File(verzeichnis + "/" + Dateiname + ".txt");
         Boolean lokalladen = false;
+        Boolean nichtlokal = false;
         Object[] options = {"Ja, Daten lokal laden", "Nein, Daten online laden"};
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(file.lastModified());
@@ -40,38 +41,42 @@ public class Datenverwaltung {
                 lokalladen = true;
                 return lokalladen;
             } else {
-                int n = JOptionPane.showOptionDialog(null, "Die angeforderten Daten " + Dateiname + " wurden lokal gefunden. Sie stammen vom " + cal.get(Calendar.DAY_OF_MONTH) + "." + (cal.get(Calendar.MONTH) + 1) + "." + cal.get(Calendar.YEAR) + ". Sollen sie geladen werden?", "Lokale Daten", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-                if (n == 0) {
-                    abgefragteDateien[index] = Dateiname;
-                    lokalladen = true;
-                    index++;
-                } else if(n == 1) {
-                    lokalladen = false;
-                    return lokalladen;
-                }
-                else
-                    {
-                        abgefragteDateien[index] = Dateiname;
-                        lokalladen = true;
-                    }
+                nichtlokal = true;
                 }
             } else {
-                int n = JOptionPane.showOptionDialog(null, "Die angeforderten Daten " + Dateiname + " wurden lokal gefunden. Sie stammen vom " + cal.get(Calendar.DAY_OF_MONTH) + "." + (cal.get(Calendar.MONTH) + 1) + "." + cal.get(Calendar.YEAR) + ". Sollen sie geladen werden?", "Lokale Daten", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
-                if (n == 0) {
-                    abgefragteDateien[index] = Dateiname;
-                    lokalladen = true;
-                    index++;
-                    return lokalladen;
-                } else if(n == 1) {
-                    lokalladen = false;
-                    return  lokalladen;
-                }
-                else
-                    {
-                        abgefragteDateien[index] = Dateiname;
-                        lokalladen = true;
-                    }
+                nichtlokal = true;
             }
+            }
+            if(nichtlokal)
+            {
+                lokalladen = Lokalanfrage(Dateiname);
+            }
+            return lokalladen;
+        }
+
+        public static Boolean Lokalanfrage (String Dateiname)
+        {
+            File fi = new File("");
+            String verzeichnis = fi.getAbsolutePath();
+            File file = new File(verzeichnis + "/" + Dateiname + ".txt");
+            Object[] options = {"Ja, Daten lokal laden", "Nein, Daten online laden"};
+            Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(file.lastModified());
+            Boolean lokalladen = false;
+            int n = JOptionPane.showOptionDialog(null, "Die angeforderten Daten " + Dateiname + " wurden lokal gefunden. Sie stammen vom " + cal.get(Calendar.DAY_OF_MONTH) + "." + (cal.get(Calendar.MONTH) + 1) + "." + cal.get(Calendar.YEAR) + ". Sollen sie geladen werden?", "Lokale Daten", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+            if (n == 0) {
+                abgefragteDateien[index] = Dateiname;
+                lokalladen = true;
+                index++;
+            } else if(n == 1) {
+                lokalladen = false;
+                return lokalladen;
+            }
+            else
+            {
+                abgefragteDateien[index] = Dateiname;
+                lokalladen = true;
+                return lokalladen;
             }
             return lokalladen;
         }
