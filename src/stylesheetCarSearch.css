@@ -9,3 +9,9 @@
     -fx-text-fill: black;
 	-fx-margin: 20;
 }
+
+.button:hover {
+	
+	    -fx-border-color: #808000;
+		-fx-background-color: olive;
+}

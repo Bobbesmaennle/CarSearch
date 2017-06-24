@@ -336,18 +336,5 @@ public class Controller {
         Favoriten.Favorithinzufügen(AutomodellVariante);
     }
 
-    public void NeueSuche() throws IOException
-    {
-        CarListViewer.getItems().clear();
-        CarDetails.getItems().clear();
-        brand.getItems().clear();
-        modell.getItems().clear();
-        year.getItems().clear();
-
-
-
-        AlleMarkeninBrand();
-
-    }
 }
 
