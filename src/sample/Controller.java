@@ -31,17 +31,19 @@ public class Controller {
     public static ArrayList<MyStringids> ModelsDropDown = new ArrayList<MyStringids>();
     public static ArrayList<MyStringids> YearsDropDown = new ArrayList<MyStringids>();
     public static ArrayList<MyStringids> Varianten = new ArrayList<MyStringids>();
+    public static ArrayList<MyStringids> Favorits = new ArrayList<MyStringids>();
 
     public static String selectedBrand = new String();
     public static String selectedModel = new String();
     public static String selectedYear = new String();
     public static String selectedVariant = new String();
-
+    public static String selectedFavorit = new String();
 
     public static boolean brandSelected = false;
     public static boolean modelSelected = false;
     public static boolean yearSelected = false;
     public static boolean variantSelected = false;
+    public static boolean Favoritenanzeigen = false;
 
     public static  MyStringids AutomodellVariante;
 
@@ -75,32 +77,41 @@ public class Controller {
 
     public void SelectedListview() throws IOException
     {
-        if (!brandSelected && !modelSelected && !yearSelected && !variantSelected) {
-            selectedBrand = CarListViewer.getSelectionModel().getSelectedItem().toString();
-            Brandchanged();
-        } else if (!modelSelected && brandSelected && !yearSelected && !variantSelected) {
-            selectedModel = CarListViewer.getSelectionModel().getSelectedItem().toString();
-            Modellchanged();
-        } else if(modelSelected && brandSelected && !yearSelected && !variantSelected){
-            selectedYear = CarListViewer.getSelectionModel().getSelectedItem().toString();
-            Yearchanged();
-        }
-        else if(modelSelected && brandSelected && yearSelected && variantSelected)
+        if(!Favoritenanzeigen)
+        {
+            if (!brandSelected && !modelSelected && !yearSelected && !variantSelected) {
+                selectedBrand = CarListViewer.getSelectionModel().getSelectedItem().toString();
+                Brandchanged();
+            } else if (!modelSelected && brandSelected && !yearSelected && !variantSelected) {
+                selectedModel = CarListViewer.getSelectionModel().getSelectedItem().toString();
+                Modellchanged();
+            } else if(modelSelected && brandSelected && !yearSelected && !variantSelected){
+                selectedYear = CarListViewer.getSelectionModel().getSelectedItem().toString();
+                Yearchanged();
+            }
+            else if(modelSelected && brandSelected && yearSelected && variantSelected)
             {
                 selectedVariant = CarListViewer.getSelectionModel().getSelectedItem().toString();
                 Variantchanged();
             }
             else
-                {
-                    selectedVariant = CarListViewer.getSelectionModel().getSelectedItem().toString();
-                    Variante();
-                }
+            {
+                selectedVariant = CarListViewer.getSelectionModel().getSelectedItem().toString();
+                Variante();
+            }
+        }
+        else
+            {
+                selectedFavorit = CarListViewer.getSelectionModel().getSelectedItem().toString();
+                Favoritendetails();
+            }
     }
 
     public void Variantchanged () throws IOException
     {
         if (!selectedVariant.equals(null)) {
             variantSelected = true;
+            Favoritenanzeigen = false;
             int index = CarListViewer.getItems().indexOf(selectedVariant);
             CarListViewer.getSelectionModel().select(index);
             CarListViewer.getFocusModel().focus(index);
@@ -119,6 +130,7 @@ public class Controller {
             modelSelected = true;
             yearSelected = false;
             variantSelected = false;
+            Favoritenanzeigen = false;
             int index = CarListViewer.getItems().indexOf(selectedModel);
             CarListViewer.getSelectionModel().select(index);
             CarListViewer.getFocusModel().focus(index);
@@ -144,6 +156,7 @@ public class Controller {
         if (!selectedYear.equals(null)) {
             yearSelected = true;
             variantSelected = false;
+            Favoritenanzeigen = false;
             int index = CarListViewer.getItems().indexOf(selectedYear);
             CarListViewer.getSelectionModel().select(index);
             CarListViewer.getFocusModel().focus(index);
@@ -165,6 +178,7 @@ public class Controller {
             modelSelected = false;
             yearSelected = false;
             variantSelected = false;
+            Favoritenanzeigen = false;
             int index = CarListViewer.getItems().indexOf(selectedBrand);
             CarListViewer.getSelectionModel().select(index);
             CarListViewer.getFocusModel().focus(index);
@@ -352,5 +366,77 @@ public class Controller {
         AlleMarkeninBrand();
 
     }
+
+    public void Favoritenanzeigen () throws IOException
+    {
+        Favoritenanzeigen = true;
+        CarListViewer.getItems().clear();
+        CarListViewer.getItems().clear();
+        CarDetails.getItems().clear();
+        CarDetails.setDisable(true);
+        brand.getItems().clear();
+        modell.getItems().clear();
+        year.getItems().clear();
+        brand.setDisable(false);
+        modell.setDisable(false);
+        year.setDisable(false);
+        ArrayList<ArrayList<MyStringids>> Favoriten = new ArrayList<ArrayList<MyStringids>>();
+        Favoriten = sample.Favoriten.Favoritenauslesen();
+        for (ArrayList<MyStringids> Favorits:Favoriten)
+        {
+            for (MyStringids Favorit:Favorits)
+            {
+                CarListViewer.getItems().add(Favorit.MyStringidStylename);
+                Favorits.add(Favorit);
+            }
+        }
+    }
+
+    public void Favoritendetails()
+    {
+        CarDetails.getItems().clear();
+        CarDetails.setDisable(false);
+        MyStringids Automodell = new MyStringids();
+        AutomodellVariante = new MyStringids();
+        for (MyStringids Favorit : Favorits) {
+            if (Favorit.MyStringidStylename.equals(selectedVariant)) {
+                Automodell.MyStringidMarkenName = Favorit.MyStringidMarkenName;
+                Automodell.MyStringidMarkenID = Favorit.MyStringidMarkenID;
+                Automodell.MyStringidMarkenNiceName = Favorit.MyStringidMarkenNiceName;
+                Automodell.MyStringidModellName = Favorit.MyStringidModellName;
+                Automodell.MyStringidModellID = Favorit.MyStringidModellID;
+                Automodell.MyStringidModellNiceName = Favorit.MyStringidModellNiceName;
+                Automodell.MyStringidJahr = Favorit.MyStringidJahr;
+                Automodell.MyStringidJahrid = Favorit.MyStringidJahrid;
+                Automodell.MyStringidDrivenWheels = Favorit.MyStringidDrivenWheels;
+                Automodell.MyStringidDoors = Favorit.MyStringidDoors;
+                Automodell.MyStringidCylinder = Favorit.MyStringidCylinder;
+                Automodell.MyStringidHorsePower = Favorit.MyStringidHorsePower;
+                Automodell.MyStringidTorque = Favorit.MyStringidTorque;
+                Automodell.MyStringidShift = Favorit.MyStringidShift;
+                Automodell.MyStringidTransmissiontype = Favorit.MyStringidTransmissiontype;
+                Automodell.MyStringidStyleid = Favorit.MyStringidStyleid;
+                Automodell.MyStringidStylename = Favorit.MyStringidStylename;
+            }
+        }
+
+        CarDetails.getItems().clear();
+        CarDetails.setDisable(true);
+        CarDetails.getItems().add("Marke: " + Automodell.MyStringidMarkenName);
+        CarDetails.getItems().add("Modell: " + Automodell.MyStringidModellName);
+        CarDetails.getItems().add("Jahr: " + Automodell.MyStringidJahr);
+        CarDetails.getItems().add("Variante: " + Automodell.MyStringidStylename);
+        CarDetails.getItems().add("Türen: " + Automodell.MyStringidDoors);
+        CarDetails.getItems().add("PS: " + Automodell.MyStringidHorsePower);
+        CarDetails.getItems().add("Drehmoment: " + Automodell.MyStringidTorque);
+        CarDetails.getItems().add("Zylinderanzahl: " + Automodell.MyStringidCylinder);
+        CarDetails.getItems().add("Antrieb: " + Automodell.MyStringidDrivenWheels);
+        CarDetails.getItems().add("Gangschaltung: " + Automodell.MyStringidShift);
+        CarDetails.getItems().add("Getriebe: " + Automodell.MyStringidTransmissiontype);
+
+                }
+
+
+
 }
 

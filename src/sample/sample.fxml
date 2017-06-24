@@ -66,7 +66,7 @@
             </HBox>
 
                 <HBox alignment="CENTER" stylesheets="@../stylesheetCarSearch.css">
-                <Button fx:id="Favourites" onAction="#FavoritHinzufuegen" text="Meine Favoriten" visible="true">
+                <Button fx:id="Favourites" onAction="#Favoritenanzeigen" onMouseClicked="#Favoritenanzeigen" text="Meine Favoriten" visible="true">
                     <HBox.margin>
                         <Insets bottom="10.0" top="10.0" />
                     </HBox.margin>
