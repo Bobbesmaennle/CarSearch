@@ -85,6 +85,7 @@ public class Autoauslesen
                             Myautomarkenmodelljahr.MyStringidModellNiceName = modell.getString("niceName");
                             Myautomarkenmodelljahr.MyStringidMarkenName = automarke.getString("name");
                             Myautomarkenmodelljahr.MyStringidMarkenID = automarke.getDouble("id");
+                            Myautomarkenmodelljahr.MyStringidMarkenNiceName = automarke.getString("niceName");
                             Myautomarkenmodelljahr.MyStringidJahrid = jahr.getDouble("id");
                             Myautomarkenmodelljahr.MyStringidJahr = jahr.getInt("year");
                             Automarkenmodelljahre.add(Myautomarkenmodelljahr);
