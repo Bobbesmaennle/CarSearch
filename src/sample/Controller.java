@@ -2,9 +2,12 @@ package sample;
 
 import javafx.fxml.*;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.LinkedBlockingQueue;
+
 public class Controller {
     @FXML
     public ComboBox brand;
@@ -16,6 +19,10 @@ public class Controller {
     public ListView CarListViewer;
     @FXML
     public ListView CarDetails;
+    @FXML
+    public Label WelcomeLabel;
+    @FXML
+    public Label InstructionLabel;
 
     public static ArrayList<MyStringids> BrandsDropDown = new ArrayList<MyStringids>();
     public static ArrayList<MyStringids> ModelsDropDown = new ArrayList<MyStringids>();
@@ -26,6 +33,7 @@ public class Controller {
     public static String selectedModel = new String();
     public static String selectedYear = new String();
     public static String selectedVariant = new String();
+
 
     public static boolean brandSelected = false;
     public static boolean modelSelected = false;
@@ -53,6 +61,9 @@ public class Controller {
     public void Yearselecteyearsdropdown() throws IOException
     {
         selectedYear = year.getValue().toString();
+        WelcomeLabel.setVisible(false);
+        InstructionLabel.setVisible(false);
+        CarDetails.setVisible(true);
         Yearchanged();
     }
 
