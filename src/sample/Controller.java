@@ -332,5 +332,14 @@ public class Controller {
     {
 
     }
+
+    public void NeueSuche()
+    {
+        CarListViewer.getItems().clear();
+        CarDetails.getItems().clear();
+        brand.getItems().clear();
+        modell.getItems().clear();
+        year.getItems().clear();
+    }
 }
 

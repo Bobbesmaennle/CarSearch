@@ -49,6 +49,7 @@
                 </VBox.margin>
             </HBox>
             <VBox alignment="CENTER" prefHeight="55.0" prefWidth="600.0" stylesheets="@../stylesheetDemo.css">
+
             <HBox alignment="CENTER" prefHeight="55.0" prefWidth="600.0" stylesheets="@../stylesheetDemo.css">
 
                 <ComboBox fx:id="brand" editable="true" onAction="#Brandselectedbrandsdropdown" onContextMenuRequested="#Brandselectedbrandsdropdown" onInputMethodTextChanged="#Brandselectedbrandsdropdown" prefWidth="150.0" promptText="Marke" />
@@ -60,11 +61,26 @@
                     <HBox.margin>
                         <Insets left="10.0" />
                     </HBox.margin></ComboBox>
-                <Button fx:id="Favourites" onAction="#FavoritHinzufuegen" text="Favoriten" visible="true">
-                    <HBox.margin>
-                        <Insets left="10.0" />
-                    </HBox.margin></Button>
 
+
+            </HBox>
+
+                <HBox alignment="CENTER" stylesheets="@../stylesheetDemo.css">
+                <Button fx:id="Favourites" onAction="#FavoritHinzufuegen" text="Meine Favoriten" visible="true">
+                    <HBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                    </HBox.margin>
+               <VBox.margin>
+                  <Insets bottom="10.0" top="10.0" />
+               </VBox.margin></Button>
+
+                <Button fx:id="NewSearch" onAction="#NeueSuche" text="Neue Suche" visible="true">
+                    <HBox.margin>
+                        <Insets bottom="10.0" left="20.0" top="10.0" />
+                    </HBox.margin>
+                    <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                    </VBox.margin></Button>
             </HBox>
         </VBox>
 
