@@ -333,7 +333,10 @@ public class Controller {
 
     public void FavoritHinzufuegen() throws IOException
     {
-        Favoriten.Favorithinzufügen(AutomodellVariante);
+        MyStringids modellspeichern = new MyStringids();
+        String modellname = modell.getValue().toString();
+        modellspeichern.MyStringidModellName = modellname;
+        Favoriten.Favorithinzufügen(modellspeichern);
     }
 
 }
