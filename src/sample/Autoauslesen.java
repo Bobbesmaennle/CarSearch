@@ -49,6 +49,7 @@ public class Autoauslesen
                     Myautomarkenmodell.MyStringidModellName = modell.getString("name");
                     Myautomarkenmodell.MyStringidModellNiceName = modell.getString("niceName");
                     Myautomarkenmodell.MyStringidMarkenName = automarke.getString("name");
+                    Myautomarkenmodell.MyStringidMarkenNiceName = automarke.getString("niceName");
                     Myautomarkenmodell.MyStringidMarkenID = automarke.getDouble("id");
                     Automarkenmodelle.add(Myautomarkenmodell);
                 }
